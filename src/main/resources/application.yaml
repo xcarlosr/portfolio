@@ -1,0 +1,37 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 300000
+    encoding:
+      charset: UTF-8
+      enabled: true
+
+sonarqube:
+  host: http://localhost:9000
+  username: admin
+  password: 1234
+
+spring:
+  flyway:
+    validate-on-migrate: true
+    enabled: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=public
+    username: postgres
+    password: postgres
+  application:
+    name: portfolio
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+    open-in-view: false
+    datasource:
+      continue-on-error: true
+      hikari:
+        maximum-pool-size: 10
+        idle-timeout: 1000
+        pool-name: hikari-pool
