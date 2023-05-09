@@ -20,18 +20,12 @@ import java.util.Objects;
 @Component
 public class MapperBaseImpl implements MapperBase {
 
-    public String REGEX_CPF = "(\\d{3})(\\d{3})(\\d{3})(\\d{2})";
+    private static final String REGEX_CPF = "(\\d{3})(\\d{3})(\\d{3})(\\d{2})";
 
     @Override
     @Named(value = "localDateToString")
     public String localDateToString(LocalDate data) {
         return Objects.nonNull(data) ? data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : null;
-    }
-
-    @Override
-    @Named(value = "dataStringToLocalDate")
-    public LocalDate dataStringToLocalDate(String data) {
-        return Objects.nonNull(data) ? LocalDate.parse(data, DateTimeFormatter.ofPattern("dd/MM/yyyy")) : null;
     }
 
     @Override
@@ -45,7 +39,7 @@ public class MapperBaseImpl implements MapperBase {
     @Override
     @Named(value = "ofuscarCPF")
     public String ofuscarCPF(String cpf){
-        return cpf.replaceAll("[^0-9]+", "")
+        return cpf.replaceAll("\\D+", "")
                 .replaceAll(REGEX_CPF, "$1.***.***-$4");
     }
 

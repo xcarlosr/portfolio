@@ -2,15 +2,12 @@ package br.com.gerencia.portfolio.service;
 
 import br.com.gerencia.portfolio.dto.request.ProjetoRequest;
 import br.com.gerencia.portfolio.dto.response.ProjetoResponse;
-import br.com.gerencia.portfolio.entity.Pessoa;
 import br.com.gerencia.portfolio.entity.Projeto;
-import br.com.gerencia.portfolio.enums.ProjetoStatusEnum;
 import br.com.gerencia.portfolio.exception.PessoaNotFoundException;
 import br.com.gerencia.portfolio.exception.ProjetoErrorException;
 import br.com.gerencia.portfolio.exception.ProjetoNotFoundException;
 import br.com.gerencia.portfolio.exception.RegraNegocioException;
 import br.com.gerencia.portfolio.mappers.ProjetoMapper;
-import br.com.gerencia.portfolio.repository.PessoaRepository;
 import br.com.gerencia.portfolio.repository.ProjetoRepository;
 import br.com.gerencia.portfolio.validator.ProjetoValidator;
 import lombok.RequiredArgsConstructor;

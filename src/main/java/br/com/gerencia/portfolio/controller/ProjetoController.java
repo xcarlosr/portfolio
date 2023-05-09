@@ -45,6 +45,11 @@ public class ProjetoController {
        return ResponseEntity.ok().body(portfolioService.atualizarProjeto(id, projetoResquest));
     }
 
+    @PatchMapping(value = "/{id}", consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Page<ProjetoResponse>> atualizarParcialProjeto(@PathVariable Long id, @RequestBody ProjetoRequest projetoResquest) {
+        return ResponseEntity.ok().body(portfolioService.atualizarProjeto(id, projetoResquest));
+    }
+
     @DeleteMapping(value = "/{id}", consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<ProjetoResponse>> excluirProjeto(@PathVariable Long id) {
         return ResponseEntity.ok().body(portfolioService.excluirProjeto(id));

@@ -13,8 +13,6 @@ public interface MapperBase {
 
     String localDateToString(LocalDate data);
 
-    LocalDate dataStringToLocalDate(String data);
-
     String bigDecimalToString(BigDecimal valor);
 
     String ofuscarCPF(String cpf);
