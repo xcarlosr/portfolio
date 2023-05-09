@@ -7,6 +7,14 @@ server:
       charset: UTF-8
       enabled: true
 
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+
 sonarqube:
   host: http://localhost:9000
   username: admin

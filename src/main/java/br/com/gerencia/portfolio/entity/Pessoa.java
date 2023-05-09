@@ -2,12 +2,10 @@ package br.com.gerencia.portfolio.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  * @author Carlos Roberto
@@ -16,18 +14,19 @@ import java.util.Date;
  */
 @Data
 @Entity
-@Table(name = "pessoal")
+@Table(name = "pessoa")
 public class Pessoa {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "seqPessoa", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "seqPessoa", sequenceName = "seq_pessoa", allocationSize = 1)
     private Long id;
 
     @NotBlank(message = "O nome não pode ser nulo")
     @Column(length = 100, nullable = false)
     private String nome;
 
-    @Column
+    @Column(name = "datanascimento")
     private LocalDate dataNascimento;
 
     @CPF
