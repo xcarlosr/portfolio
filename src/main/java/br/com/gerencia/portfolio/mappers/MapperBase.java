@@ -1,10 +1,6 @@
 package br.com.gerencia.portfolio.mappers;
 
 
-import br.com.gerencia.portfolio.enums.ProjetoRiscoEnum;
-import br.com.gerencia.portfolio.enums.ProjetoStatusEnum;
-import org.mapstruct.Named;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -21,7 +17,6 @@ public interface MapperBase {
 
     String bigDecimalToString(BigDecimal valor);
 
-    BigDecimal decimalStringToBigDecimal(String valor);
     String ofuscarCPF(String cpf);
 }
 

@@ -1,16 +1,11 @@
 package br.com.gerencia.portfolio.mappers;
 
-import br.com.gerencia.portfolio.enums.ProjetoRiscoEnum;
-import br.com.gerencia.portfolio.enums.ProjetoStatusEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.Named;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -45,22 +40,6 @@ public class MapperBaseImpl implements MapperBase {
         NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
         format.setMaximumFractionDigits(2);
         return Objects.nonNull(valor) ? format.format(valor) : "0.00";
-    }
-
-    @Override
-    @Named(value = "decimalStringToBigDecimal")
-    public BigDecimal decimalStringToBigDecimal(String valor) {
-        DecimalFormatSymbols decimalSymbols = new DecimalFormatSymbols(Locale.getDefault());
-        decimalSymbols.setDecimalSeparator(',');
-        decimalSymbols.setGroupingSeparator('.');
-        String pattern = "#,##0.00";
-        DecimalFormat decimalFormat = new DecimalFormat(pattern, decimalSymbols);
-        try {
-            return Objects.nonNull(valor) ? (BigDecimal) decimalFormat.parse(valor) : BigDecimal.ZERO;
-        } catch (ParseException e) {
-            log.error(String.format("Error ou formatar o Orcamento %s ", valor ), e.getMessage());
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
