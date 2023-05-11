@@ -21,6 +21,10 @@ sonarqube:
   password: 1234
 
 spring:
+  mvc:
+    view:
+      prefix: '/WEB-INF/jsp/'
+      suffix: '.jsp'
   flyway:
     validate-on-migrate: true
     enabled: true
@@ -32,10 +36,10 @@ spring:
     name: portfolio
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
-        format_sql: true
+        format_sql: false
     open-in-view: false
     datasource:
       continue-on-error: true
