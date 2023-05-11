@@ -3,7 +3,6 @@ package br.com.gerencia.portfolio.controller;
 import br.com.gerencia.portfolio.dto.request.ProjetoRequest;
 import br.com.gerencia.portfolio.dto.response.ProjetoResponse;
 import br.com.gerencia.portfolio.service.ProjetoService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +11,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 /**
