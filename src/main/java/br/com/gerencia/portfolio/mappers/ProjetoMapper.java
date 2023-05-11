@@ -17,13 +17,13 @@ import java.util.Objects;
 @Mapper(componentModel = "spring", uses = {PessoaMapper.class, MapperBaseImpl.class})
 public interface ProjetoMapper {
 
-    @Mapping(source = "risco", target = "riscoEnum")
-    @Mapping(source = "status", target = "statusEnum")
+    @Mapping(source = "risco", target = "risco")
+    @Mapping(source = "status", target = "status")
     @Mapping(source = "idGerente", target = "gerente.id")
     Projeto mapToProejto(ProjetoRequest projetoRequest);
 
-    @Mapping(source = "riscoEnum", target = "risco")
-    @Mapping(source = "statusEnum", target = "status")
+    @Mapping(source = "risco", target = "risco")
+    @Mapping(source = "status", target = "status")
     @Mapping(source = "dataInicio", target = "dataInicio", qualifiedByName  = "localDateToString")
     @Mapping(source = "dataPrevisaoFim", target = "dataPrevisaoFim", qualifiedByName = "localDateToString")
     @Mapping(source = "dataFim", target = "dataFim", qualifiedByName = "localDateToString")
@@ -55,7 +55,7 @@ public interface ProjetoMapper {
         }
 
         if (Objects.nonNull(projetoRequest.getStatus())) {
-            projetoUpdate.setStatusEnum(projetoRequest.getStatus());
+            projetoUpdate.setStatus(projetoRequest.getStatus());
         }
 
         if (Objects.nonNull(projetoRequest.getOrcamento())) {
@@ -63,7 +63,7 @@ public interface ProjetoMapper {
         }
 
         if (Objects.nonNull(projetoRequest.getRisco())) {
-            projetoUpdate.setRiscoEnum(projetoRequest.getRisco());
+            projetoUpdate.setRisco(projetoRequest.getRisco());
         }
 
         if (Objects.nonNull(projetoRequest.getIdGerente())) {
@@ -71,5 +71,4 @@ public interface ProjetoMapper {
         }
         return projetoUpdate;
     }
-
 }

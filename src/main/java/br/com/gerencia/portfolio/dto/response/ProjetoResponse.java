@@ -1,6 +1,5 @@
 package br.com.gerencia.portfolio.dto.response;
 
-import br.com.gerencia.portfolio.entity.Pessoa;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;

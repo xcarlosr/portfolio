@@ -1,5 +1,8 @@
 package br.com.gerencia.portfolio.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 /**
  * @author Carlos Roberto
  * @created 07/05/2023
@@ -22,5 +25,20 @@ public enum ProjetoRiscoEnum {
             }
         }
         throw new IllegalArgumentException("Não existe o risco informado: " + risco);
+    }
+
+    @JsonValue
+    public String getRisto() {
+        return risco;
+    }
+
+    @JsonCreator
+    public static ProjetoRiscoEnum fromRisco(String risco) {
+        for (ProjetoRiscoEnum enumValue : ProjetoRiscoEnum.values()) {
+            if (enumValue.risco.equals(risco)) {
+                return enumValue;
+            }
+        }
+        throw new IllegalArgumentException("Risco inválido: " + risco);
     }
 }

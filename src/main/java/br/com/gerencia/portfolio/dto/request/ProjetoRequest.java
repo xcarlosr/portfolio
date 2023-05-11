@@ -4,8 +4,10 @@ import br.com.gerencia.portfolio.enums.ProjetoRiscoEnum;
 import br.com.gerencia.portfolio.enums.ProjetoStatusEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -17,6 +19,8 @@ import java.time.LocalDate;
  */
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProjetoRequest {
     private Long id;

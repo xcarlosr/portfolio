@@ -42,14 +42,14 @@ public class Projeto {
 
     @Enumerated(EnumType.STRING)
     @Column(name ="status" ,length = 45)
-    private ProjetoStatusEnum statusEnum;
+    private ProjetoStatusEnum status;
 
     @Column
     private BigDecimal orcamento;
 
     @Enumerated(EnumType.STRING)
     @Column(name ="risco", length = 45)
-    private ProjetoRiscoEnum riscoEnum;
+    private ProjetoRiscoEnum risco;
 
     @ManyToOne
     @JoinColumn(name = "idgerente")
@@ -60,8 +60,8 @@ public class Projeto {
     }
 
     public boolean isPossivelDeletar(){
-        if(ProjetoStatusEnum.INICIADO.equals(statusEnum) || ProjetoStatusEnum.EM_ANDAMENTO.equals(statusEnum) ||
-           ProjetoStatusEnum.ENCERRADO.equals(statusEnum)) {
+        if(ProjetoStatusEnum.INICIADO.equals(status) || ProjetoStatusEnum.EM_ANDAMENTO.equals(status) ||
+           ProjetoStatusEnum.ENCERRADO.equals(status)) {
             return Boolean.FALSE;
         }
 

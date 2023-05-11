@@ -6,6 +6,8 @@ import br.com.gerencia.portfolio.entity.Pessoa;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 /**
  * @author Carlos Roberto
  * @created 07/05/2023
@@ -16,8 +18,9 @@ public interface PessoaMapper {
 
     Pessoa mapToPessoa(PessoaRequest pessoaRequest);
 
-    @Mapping(source = "dataNascimento", target = "dataNascimento", qualifiedByName = "localDateToString")
-    @Mapping(source = "cpf", target = "cpf", qualifiedByName = "ofuscarCPF")
+    @Mapping(source = "dataNascimento", target = "dataNascimento", conditionExpression = "java(pessoa.getCpf() != null)", qualifiedByName = "localDateToString")
+    @Mapping(source = "cpf", target = "cpf", conditionExpression = "java(pessoa.getDataNascimento() != null)", qualifiedByName = "ofuscarCPF")
     PessoaResponse mapToPessoaResponse(Pessoa pessoa);
 
+    List<PessoaResponse> mapToListProjetoResponses(List<Pessoa> listPessoa);
 }

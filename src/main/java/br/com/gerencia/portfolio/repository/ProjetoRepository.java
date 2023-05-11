@@ -18,5 +18,5 @@ public interface ProjetoRepository extends JpaRepository<Projeto, Long> {
 
     @EntityGraph(attributePaths = "gerente")
     @Query(value = "SELECT p FROM Projeto p JOIN p.gerente ps")
-    Page<Projeto> findAllWithPessoaJoin(Pageable pageable);
+    Page<Projeto> findAllByIdPessoa(Pageable pageable);
 }
