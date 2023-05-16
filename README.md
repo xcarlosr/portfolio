@@ -62,43 +62,43 @@ O SonarQube é uma plataforma de análise estática de código que verifica a qu
 Especificação que descreve e padroniza a documentação e a integração de APIs REST. Ele permite garantir a qualidade do código e facilita o compartilhamento de contratos entre equipes. Para acessar a documentação da API do projeto, basta acessar a URL: `http://localhost:8080/swagger-ui/index.html` com a aplicação em execução.
 
 ### Tela OpenApi
-![Tela OpenApi](https://github.com/xcarlosr/portfolio/blob/main/imagens/open-api-swagger.png?raw=true)
+![alt tag](https://github.com/xcarlosr/portfolio/blob/main/imagens/open-api-swagger.png?raw=true)
 
 
 
 ## Telas da Aplicação
 
 ### Tela Home
-![Tela Home](https://github.com/xcarlosr/portfolio/blob/main/imagens/home.png?raw=true)
+![alt tag](https://github.com/xcarlosr/portfolio/blob/main/imagens/home.png?raw=true)
 
 
 ### Tela Projeto
-![Tela Projetos](https://github.com/xcarlosr/portfolio/blob/main/imagens/projetos.png?raw=true)
+![alt tag](https://github.com/xcarlosr/portfolio/blob/main/imagens/projetos.png?raw=true)
 
 
 ### Tela Projeto - Pesquisa pelo id
-![Tela Projetos](https://github.com/xcarlosr/portfolio/blob/main/imagens/projeto_pesquisa_id.png?raw=true)
+![alt tag](https://github.com/xcarlosr/portfolio/blob/main/imagens/projeto_pesquisa_id.png?raw=true)
 
 
 ### Tela Projeto - Pesquisa por nome e descrição
-![Tela Projetos](https://github.com/xcarlosr/portfolio/blob/main/imagens/projeto_pesquisa_descricao.png?raw=true)
+![alt tag](https://github.com/xcarlosr/portfolio/blob/main/imagens/projeto_pesquisa_descricao.png?raw=true)
 
 
 ### Tela Projeto - Adicionar
-![Tela Projetos](https://github.com/xcarlosr/portfolio/blob/main/imagens/projeto_adicionar.png?raw=true)
+![alt tag](https://github.com/xcarlosr/portfolio/blob/main/imagens/projeto_adicionar.png?raw=true)
 
 
 ### Tela Projeto - Editar
-![Tela Projetos](https://github.com/xcarlosr/portfolio/blob/main/imagens/projeto_editar.png?raw=true)
+![alt tag](https://github.com/xcarlosr/portfolio/blob/main/imagens/projeto_editar.png?raw=true)
 
 
 ### Tela Projeto - Deletar
-![Tela Projetos](https://github.com/xcarlosr/portfolio/blob/main/imagens/projeto_deletar.png?raw=true)
+![alt tag](https://github.com/xcarlosr/portfolio/blob/main/imagens/projeto_deletar.png?raw=true)
 
 
 ### Tela Pessoa
-![Tela Projetos](https://github.com/xcarlosr/portfolio/blob/main/imagens/pessoas.png?raw=true)
+![alt tag](https://github.com/xcarlosr/portfolio/blob/main/imagens/pessoas.png?raw=true)
 
 
 ### Tela Membro
-![Tela Projetos](https://github.com/xcarlosr/portfolio/blob/main/imagens/membros.png?raw=true)
+![alt tag](https://github.com/xcarlosr/portfolio/blob/main/imagens/membros.png?raw=true)
