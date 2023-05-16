@@ -7,6 +7,12 @@ server:
       charset: UTF-8
       enabled: true
 
+mensagens:
+  erroPessoaNaoEncontrada: "Pessoa não encontrada com o id: %s"
+  erroNaoFoiPossivelSalvarPessoa: "Não foi possível salvar a pessoa."
+
+
+
 springdoc:
   api-docs:
     enabled: true
@@ -14,7 +20,7 @@ springdoc:
   swagger-ui:
     enabled: true
     path: /swagger-ui.html
-
+      
 sonarqube:
   host: http://localhost:9000
   username: admin
@@ -23,8 +29,8 @@ sonarqube:
 spring:
   mvc:
     view:
-      prefix: '/WEB-INF/jsp/'
-      suffix: '.jsp'
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
   flyway:
     validate-on-migrate: true
     enabled: true
@@ -47,3 +53,5 @@ spring:
         maximum-pool-size: 10
         idle-timeout: 1000
         pool-name: hikari-pool
+
+        
