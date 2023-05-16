@@ -1,9 +1,5 @@
 package br.com.gerencia.portfolio.mappers;
 
-import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.Named;
-import org.springframework.stereotype.Component;
-
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -11,12 +7,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Objects;
 
+import org.mapstruct.Named;
+import org.springframework.stereotype.Component;
+
 /**
  * @author Carlos Roberto
  * @created 07/05/2023
  * @since 1.0
  */
-@Slf4j
 @Component
 public class MapperBaseImpl implements MapperBase {
 

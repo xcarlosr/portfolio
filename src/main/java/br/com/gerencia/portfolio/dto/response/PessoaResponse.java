@@ -17,11 +17,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"id","nome", "dataNascimento", "cpf;", "funcionario"})
+@JsonPropertyOrder({"id","nome", "dataNascimento", "cpf", "cargo", "funcionario"})
 public class PessoaResponse {
     private Long id;
     private String nome;
     private String dataNascimento;
     private String cpf;
+    private String cargo;
     private boolean funcionario;
 }

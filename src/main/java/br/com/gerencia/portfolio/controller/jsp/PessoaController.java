@@ -1,45 +1,63 @@
-package br.com.gerencia.portfolio.controller;
+package br.com.gerencia.portfolio.controller.jsp;
 
-import br.com.gerencia.portfolio.dto.request.PessoaRequest;
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import br.com.gerencia.portfolio.dto.response.PessoaResponse;
 import br.com.gerencia.portfolio.service.PessoaService;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Carlos Roberto
  * @created 09/05/2023
  * @since 1.0
  */
-@RestController
+@Hidden
+@Controller
 @RequiredArgsConstructor
-@RequestMapping("/pessoas")
+@RequestMapping("/jsp/pessoas")
 public class PessoaController {
 
     private final PessoaService pessoaService;
 
-    @PostMapping(consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> adicionarPessoa(@RequestBody PessoaRequest pessoaRequest) {
-        pessoaService.cadastrarPessoa(pessoaRequest);
+    @GetMapping(value = "/{id:[0-9]}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String consultarPessoa(Model model, 
+    							  @PathVariable Long id) {
+    	
+    	model.addAttribute("pessoaResponse", pessoaService.consultarPessoa(id));
+    	return "peossoa-lista";
+    }
+    
+    @ResponseBody
+    @GetMapping(value = "/lista", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<PessoaResponse> listar() {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body("Pessoa criada com sucesso");
+    	return pessoaService.listar();
     }
 
-    @GetMapping(value = "/{id}", consumes = MediaType.ALL_VALUE,  produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PessoaResponse> consultarPessoa(@PathVariable Long id) {
-        return ResponseEntity.ok().body(pessoaService.consultarPessoa(id));
-    }
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public String listarPaginado(Model model,
+                              @RequestParam(defaultValue = "0") int page,
+                              @RequestParam(defaultValue = "5") int size) {
 
-    @GetMapping(consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Page<PessoaResponse>> listarPessoa(
-            @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        return ResponseEntity.ok().body(pessoaService.listarPessoa(pageable));
+        Sort sort = Sort.by(Sort.Direction.ASC, "id");
+        
+        Page<PessoaResponse> pessoas = pessoaService.listarPaginado(PageRequest.of(page, size, sort));
+
+        model.addAttribute("pessoas", pessoas);
+
+        return "pessoa-lista";
     }
 }

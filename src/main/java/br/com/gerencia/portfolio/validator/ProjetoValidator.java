@@ -1,5 +1,9 @@
 package br.com.gerencia.portfolio.validator;
 
+import java.util.Objects;
+
+import org.springframework.stereotype.Component;
+
 import br.com.gerencia.portfolio.dto.request.ProjetoRequest;
 import br.com.gerencia.portfolio.entity.Pessoa;
 import br.com.gerencia.portfolio.entity.Projeto;
@@ -10,9 +14,6 @@ import br.com.gerencia.portfolio.exception.RegraNegocioException;
 import br.com.gerencia.portfolio.mappers.ProjetoMapper;
 import br.com.gerencia.portfolio.repository.ProjetoRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-
-import java.util.Objects;
 
 /**
  * @author Carlos Roberto
@@ -27,11 +28,10 @@ public class ProjetoValidator {
 
     private final PessoaValidator pessoaValidator;
 
-
     private final ProjetoRepository projetoRepository;
 
     private Projeto projeto;
-
+    
     public ProjetoValidator setProjeto(Projeto projeto) throws ProjetoNotFoundException {
         if(Objects.isNull(projeto))
             throw new ProjetoNotFoundException("Pessoa não é valida");

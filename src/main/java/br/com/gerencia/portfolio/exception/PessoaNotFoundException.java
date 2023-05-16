@@ -7,7 +7,9 @@ package br.com.gerencia.portfolio.exception;
  */
 public class PessoaNotFoundException extends RuntimeException {
 
-    public PessoaNotFoundException (String message){
+	private static final long serialVersionUID = 47319387467607437L;
+
+	public PessoaNotFoundException (String message){
         super(message);
     }
 

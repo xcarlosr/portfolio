@@ -24,6 +24,7 @@ public class PessoaRequest {
     private String nome;
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dataNascimento;
+    private String cargo;
     private String cpf;
     private boolean funcionario;
 

@@ -1,5 +1,11 @@
 package br.com.gerencia.portfolio.mappers;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
 import br.com.gerencia.portfolio.dto.request.MembroRequest;
 import br.com.gerencia.portfolio.dto.response.MembroResponse;
 import br.com.gerencia.portfolio.dto.response.PessoaResponse;
@@ -7,10 +13,6 @@ import br.com.gerencia.portfolio.dto.response.ProjetoResponse;
 import br.com.gerencia.portfolio.entity.Membro;
 import br.com.gerencia.portfolio.entity.Pessoa;
 import br.com.gerencia.portfolio.entity.Projeto;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-
-import java.util.List;
 
 /**
  * @author Carlos Roberto
@@ -26,13 +28,13 @@ public interface MembroMapper {
     default List<Membro> mapToListMembro(Long idProjeto, List<MembroRequest> listMembros) {
         return listMembros.stream()
                 .map(membroRequest -> mapToMembro(idProjeto, membroRequest))
-                .toList();
+                .collect(Collectors.toList());
     }
 
     default MembroResponse mapToListMembroResponse(Projeto projeto, List<Pessoa> listPessoas) {
         return MembroResponse.builder()
                 .projeto(mapToProjetoResponse(projeto))
-                .membros(listPessoaToPessoaResponseByMembroResponse(listPessoas))
+                .pessoas(listPessoaToPessoaResponseByMembroResponse(listPessoas))
                 .build();
     }
 
@@ -59,6 +61,6 @@ public interface MembroMapper {
                         .id(pessoa.getId())
                         .nome(pessoa.getNome())
                         .funcionario(pessoa.isFuncionario()).build())
-                .toList();
+                .collect(Collectors.toList());
     }
 }

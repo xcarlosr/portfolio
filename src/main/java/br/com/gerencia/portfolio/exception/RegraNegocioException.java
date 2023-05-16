@@ -6,7 +6,10 @@ package br.com.gerencia.portfolio.exception;
  * @since 1.0
  */
 public class RegraNegocioException extends RuntimeException {
-    public RegraNegocioException(String message){
+
+	private static final long serialVersionUID = 2191767992044140054L;
+
+	public RegraNegocioException(String message){
         super(message);
     }
 

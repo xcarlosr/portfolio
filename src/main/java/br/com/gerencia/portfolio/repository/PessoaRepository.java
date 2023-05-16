@@ -18,5 +18,8 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
 
     @Query(value = "SELECT p.* FROM pessoa p INNER JOIN membros m ON p.id = m.idpessoa WHERE m.idprojeto = :idProjeto",
             nativeQuery = true)
-    List<Pessoa> findAllByIdPessoas(@Param("idProjeto") Long idProjeto);
+    List<Pessoa> findAllByIdProjeto(@Param("idProjeto") Long idProjeto);
+    
+    @Query(value = "SELECT p FROM Pessoa p WHERE p.funcionario = true order by p.id")
+    List<Pessoa> findAllPessoas();
 }

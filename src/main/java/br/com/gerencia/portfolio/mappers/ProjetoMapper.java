@@ -24,11 +24,11 @@ public interface ProjetoMapper {
 
     @Mapping(source = "risco", target = "risco")
     @Mapping(source = "status", target = "status")
-    @Mapping(source = "dataInicio", target = "dataInicio", qualifiedByName  = "localDateToString")
-    @Mapping(source = "dataPrevisaoFim", target = "dataPrevisaoFim", qualifiedByName = "localDateToString")
-    @Mapping(source = "dataFim", target = "dataFim", qualifiedByName = "localDateToString")
-    @Mapping(source = "orcamento", target = "orcamento", qualifiedByName = "bigDecimalToString")
-    ProjetoResponse mapToResponse(Projeto projeto);
+    @Mapping(source = "dataInicio", target = "dataInicio")
+    @Mapping(source = "dataPrevisaoFim", target = "dataPrevisaoFim")
+    @Mapping(source = "dataFim", target = "dataFim")
+    @Mapping(source = "orcamento", target = "orcamento")
+    ProjetoResponse mapToProjetoResponse(Projeto projeto);
 
     List<ProjetoResponse> mapToListProjetoResponses(List<Projeto> projetos);
 
