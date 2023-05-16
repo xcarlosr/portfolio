@@ -1,0 +1,318 @@
+{
+	"info": {
+		"_postman_id": "813fc5d5-0866-42e2-be6c-f470cdcc375e",
+		"name": "Portfolio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Projeto",
+			"item": [
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/projetos?page=0&size=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projetos"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								},
+								{
+									"key": "valor",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"nome\": \"Projeto 65\",\r\n\t\"dataInicio\": \"2023-05-10\",\r\n\t\"dataPrevisaoFim\": \"2023-06-10\",\r\n\t\"descricao\": \"Descrição do Projeto 65\",\r\n\t\"status\": \"EM_ANALISE\",\r\n\t\"orcamento\": \"10000\",\r\n\t\"risco\": \"BAIXO_RISCO\",\r\n\t\"idGerente\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/projetos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projetos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"nome\": \"Projeto 72\",\r\n\t\"dataInicio\": \"2023-05-06\",\r\n\t\"dataPrevisaoFim\": \"2023-06-30\",\r\n\t\"descricao\": \"Descrição do Projeto 72 sp-1\",\r\n\t\"status\": \"INICIADO\",\r\n\t\"orcamento\": \"10000\",\r\n\t\"risco\": \"MEDIO_RISCO\",\r\n\t\"idGerente\": 3\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/projetos/72",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projetos",
+								"72"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"status\": \"EM_ANALISE\",\r\n\t\"orcamento\": \"55000\",\r\n\t\"risco\": \"ALTO_RISCO\",\r\n\t\"idGerente\": 2\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/projetos/16",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projetos",
+								"16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/projetos/71",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projetos",
+								"71"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pessoa",
+			"item": [
+				{
+					"name": "Get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/pessoas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pessoas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\" : \"pessoa 11\",\r\n    \"cargo\": \"cargo pessoa 11\",\r\n    \"funcionario\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pessoas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pessoas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Membros Projeto",
+			"item": [
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/projetos/2/membros",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projetos",
+								"2",
+								"membros"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"idPessoa\": 7\r\n  },\r\n  {\r\n    \"idPessoa\": 8\r\n  },\r\n  {\r\n    \"idPessoa\": 9\r\n  },\r\n  {\r\n    \"idPessoa\": 10\r\n  },\r\n  {\r\n    \"idPessoa\": 12\r\n  }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/projetos/5/membros",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"projetos",
+								"5",
+								"membros"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
