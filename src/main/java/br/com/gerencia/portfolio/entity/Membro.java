@@ -1,7 +1,15 @@
 package br.com.gerencia.portfolio.entity;
 
-import jakarta.persistence.*;
+import java.io.Serializable;
+
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author Carlos Roberto
@@ -10,10 +18,15 @@ import lombok.Data;
  */
 @Data
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "membros")
-public class Membro {
+public class Membro implements Serializable{
 
-    @EmbeddedId
+	private static final long serialVersionUID = -843376588613691504L;
+	
+	@EmbeddedId
     private MembroPk id;
 
 }

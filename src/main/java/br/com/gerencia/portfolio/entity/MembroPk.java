@@ -1,12 +1,14 @@
 package br.com.gerencia.portfolio.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
 
 /**
  * @author Carlos Roberto
@@ -14,12 +16,15 @@ import java.io.Serializable;
  * @since 1.0
  */
 @Data
+@Builder
 @Embeddable
 @AllArgsConstructor
 @NoArgsConstructor
 public class MembroPk implements Serializable {
 
-    @Column(name = "idprojeto")
+	private static final long serialVersionUID = 7766073295119911081L;
+
+	@Column(name = "idprojeto")
     private Long idProjeto;
 
     @Column(name = "idpessoa")

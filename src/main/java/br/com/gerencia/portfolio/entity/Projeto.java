@@ -1,14 +1,29 @@
 package br.com.gerencia.portfolio.entity;
 
-import br.com.gerencia.portfolio.enums.ProjetoRiscoEnum;
-import br.com.gerencia.portfolio.enums.ProjetoStatusEnum;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
-
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+
+import br.com.gerencia.portfolio.enums.ProjetoRiscoEnum;
+import br.com.gerencia.portfolio.enums.ProjetoStatusEnum;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author Carlos Roberto
@@ -16,10 +31,17 @@ import java.util.Objects;
  * @since 1.0
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "projeto")
-public class Projeto {
-    @Id
+public class Projeto implements Serializable {
+	
+	
+	private static final long serialVersionUID = -7991445623474326882L;
+
+	@Id
     @GeneratedValue(generator = "seqProjeto", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "seqProjeto", sequenceName = "seq_projeto", allocationSize = 1)
     private Long id;

@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
-
+//@OpenAPIDefinition
 @SpringBootApplication
 public class PortfolioApplication extends SpringBootServletInitializer {
 

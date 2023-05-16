@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum ProjetoStatusEnum {
 
     EM_ANALISE("EM_ANALISE"),
-    ANALIS_REALIZADA("ANALIS_REALIZADA"),
+    ANALIS_REALIZADA("ANALISE_REALIZADA"),
     ANALISE_APROVADA("ANALISE_APROVADA"),
     INICIADO("INICIADO"),
     PLANEJADO("PLANEJADO"),
