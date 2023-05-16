@@ -1,0 +1,5 @@
+mensagens:
+  erroPessoaNaoEncontrada: "Pessoa não encontrada com o id: %s"
+  erroNaoFoiPossivelSalvarPessoa: "Não foi possível salvar a pessoa."
+
+  

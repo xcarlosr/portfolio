@@ -1,0 +1,38 @@
+#header-page {
+    padding-top: 10px;
+}
+
+header {
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+header h2 {
+    margin: 0;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.content {
+    padding: 20px;
+}
+
+
+.content {
+    display: inline;
+    justify-content: center;
+    height: 46vh;
+}
+
+.text-left {
+    text-align: left;
+}
