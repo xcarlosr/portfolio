@@ -37,7 +37,7 @@ import br.com.gerencia.portfolio.repository.PessoaRepository;
 
 @ExtendWith(MockitoExtension.class)
 @ContextConfiguration(classes = {PessoaService.class, PessoaMapperImpl.class})
-public class PessoaServiceTests {
+class PessoaServiceTests {
 	
 	private static final String MSG_ERROR_CONNECTION_TIME_OUT = "Connection time out";
 
@@ -62,7 +62,10 @@ public class PessoaServiceTests {
     
     private Pessoa pessoa;
     
-	private List<Pessoa> pessoas;
+    private Long idPessoa;
+	
+    private List<Pessoa> pessoas;
+		
     
     @BeforeEach
     void setUp() {
@@ -74,6 +77,8 @@ public class PessoaServiceTests {
         		.nome("Pessoa 1")
         		.cargo("Cargo pessoa 1")
         		.build();
+    	
+    	idPessoa = pessoa.getId();
     			
     	pessoaRequest = PessoaRequest.builder()
     			.nome("Pessoa 1")
@@ -147,7 +152,7 @@ public class PessoaServiceTests {
     	when(pessoaMapper.mapToPessoaResponse(any())).thenReturn(pessoaResponseExpected);
     	when(pessoaRepository.findById(any())).thenReturn(Optional.of(pessoa));
 
-        PessoaResponse result = pessoaService.consultarPessoa(pessoa.getId());
+        PessoaResponse result = pessoaService.consultarPessoa(idPessoa);
 
         assertNotNull(result);
         assertEquals(pessoaResponseExpected.getId(), result.getId());
@@ -157,11 +162,11 @@ public class PessoaServiceTests {
     @Test
     @DisplayName("Deve lançar PessoaNotFoundException ao consultar uma pessoa com id inválido.")
     void teste04() {
-    	
+    	    	
     	when(pessoaRepository.findById(any())).thenReturn(Optional.empty());
     	
-    	assertThrows(PessoaNotFoundException.class,() -> pessoaService.consultarPessoa(pessoa.getId()), 
-    			String.format(MSG_ERROR_PESSOA_NAO_ENCONTRADA_COM_O_ID, pessoa.getId()));
+    	assertThrows(PessoaNotFoundException.class,() -> pessoaService.consultarPessoa(idPessoa), 
+    			String.format(MSG_ERROR_PESSOA_NAO_ENCONTRADA_COM_O_ID, idPessoa));
 			
     }
     

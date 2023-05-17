@@ -55,7 +55,7 @@ O SonarQube é uma plataforma de análise estática de código que verifica a qu
 
 1. Acesse o SonarQube no seu navegador em `http://localhost:9000`
 2. Faça login utilizando o usuário "admin" e a senha "admin".
-3. Para executar o projeto no sonar, execute o comando: mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=admin -Dsonar.password=senha-do-administrador
+3. Para executar o projeto no sonar, execute o comando: mvn sonar:sonar
 
 ## Documentação do projeto - OpenApi
 

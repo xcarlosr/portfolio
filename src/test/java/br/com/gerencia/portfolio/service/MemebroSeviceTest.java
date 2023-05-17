@@ -45,7 +45,7 @@ import br.com.gerencia.portfolio.validator.ProjetoValidator;
 
 @ExtendWith(MockitoExtension.class)
 @ContextConfiguration(classes = {MembroService.class, MembroMapper.class})
-public class MemebroSeviceTest {
+class MemebroSeviceTest {
 
 	private static final String MSG_ERROR_CONNECTION_TIME_OUT = "Connection time out";
 	
@@ -80,12 +80,20 @@ public class MemebroSeviceTest {
 	@InjectMocks
 	private MembroService membroService;
 	
-	private List<MembroRequest> listaMembroRequest;
+	private List<MembroRequest> listaMembroRequest = new ArrayList<>();
 	
-	List<Membro> membros;
+	private List<Membro> membros = new ArrayList<>();
+
+	private List<MembroRequest> membrosRequest = new ArrayList<>();
 	
 	private Projeto projeto;
 	
+	private Long idprojeto;
+	
+	private Long idPessoaFuncionario;
+	
+	private Long idPessoaNaoFuncionario;
+
 	private Pessoa pessoaFuncionario;
 	
 	private Pessoa pessoaNaoFuncionario;
@@ -105,9 +113,15 @@ public class MemebroSeviceTest {
 								.risco(ProjetoRiscoEnum.BAIXO_RISCO)
 								.build();
 		
+		idprojeto = projeto.getId();
+		
 		pessoaFuncionario = Pessoa.builder().id(22L).nome("Pessoa 22").cargo("Cargo pessoa 22 teste").funcionario(Boolean.TRUE).build();
 		
+		idPessoaFuncionario = pessoaFuncionario.getId();
+		
 		pessoaNaoFuncionario = Pessoa.builder().id(33L).nome("Pessoa 33").cargo("Cargo pessoa 33 teste").funcionario(Boolean.FALSE).build();
+		
+		idPessoaNaoFuncionario = pessoaNaoFuncionario.getId();
 		
 		listaMembroRequest = Arrays.asList(
 							MembroRequest.builder().idPessoa(pessoaFuncionario.getId()).build(),
@@ -115,11 +129,11 @@ public class MemebroSeviceTest {
 		
 		membros = Arrays.asList(
 				Membro.builder().id(MembroPk.builder()
-										.idPessoa(projeto.getId())
+										.idPessoa(idprojeto)
 										.idProjeto(pessoaFuncionario
 										.getId()).build() ).build(),
 				Membro.builder().id(MembroPk.builder()
-										.idPessoa(projeto.getId())
+										.idPessoa(idprojeto)
 										.idProjeto(pessoaNaoFuncionario
 										.getId()).build() ).build());
 		
@@ -132,7 +146,7 @@ public class MemebroSeviceTest {
 		
 		when(projetoRepository.existsById(anyLong())).thenReturn(true);
 
-		String result = membroService.vincularMembrosProjeto(projeto.getId(), listaMembroRequest);
+		String result = membroService.vincularMembrosProjeto(idprojeto, listaMembroRequest);
 
 		assertEquals(MSG_OPERACAO_REALIZADO_COM_SUCESSO, result);
 		
@@ -142,14 +156,12 @@ public class MemebroSeviceTest {
 	@DisplayName("Deve lançar ProjetoNotFoundException ao vincular membros a um projeto inexistente.")
 	void teste02() throws PessoaNotFoundException, RegraNegocioException, MembrosNaosalvosException {
 	    
-	    Long idProjetoInexistente = 999L;
-	    
-	    when(projetoRepository.existsById(idProjetoInexistente)).thenReturn(false);
-	    
+	    when(projetoRepository.existsById(any())).thenReturn(false);
+
 	    assertThrows(
 	    		ProjetoNotFoundException.class, 
-	    		() -> membroService.vincularMembrosProjeto(idProjetoInexistente, Arrays.asList(new MembroRequest())),
-	            String.format(MSG_ERROR_PROJETO_NAO_ENCONTRADO_PARA_O_ID, idProjetoInexistente)
+	    		() -> membroService.vincularMembrosProjeto(idprojeto, membrosRequest),
+	            String.format(MSG_ERROR_PROJETO_NAO_ENCONTRADO_PARA_O_ID, idprojeto)
 	    );
 	}
 	
@@ -157,9 +169,8 @@ public class MemebroSeviceTest {
 	@DisplayName("Deve lançar MembrosNaosalvosException ao tentar vincular membros não funcionários.")
 	void teste03() throws PessoaNotFoundException, RegraNegocioException, ProjetoNotFoundException {
 
-		List<MembroRequest> membrosRequest = new ArrayList<>();
-		membrosRequest.add(MembroRequest.builder().idPessoa(pessoaFuncionario.getId()).build());
-		membrosRequest.add(MembroRequest.builder().idPessoa(pessoaNaoFuncionario.getId()).build());
+		membrosRequest.add(MembroRequest.builder().idPessoa(idPessoaFuncionario).build());
+		membrosRequest.add(MembroRequest.builder().idPessoa(idPessoaNaoFuncionario).build());
 		
 		
 		when(projetoRepository.existsById(anyLong())).thenReturn(Boolean.TRUE);
@@ -168,14 +179,14 @@ public class MemebroSeviceTest {
 	    
 	    MembrosNaosalvosException exception = assertThrows(
 	            MembrosNaosalvosException.class,
-	            () -> membroService.vincularMembrosProjeto(pessoaNaoFuncionario.getId(), membrosRequest)
+	            () -> membroService.vincularMembrosProjeto(idPessoaNaoFuncionario, membrosRequest)
 	    );
 	    
 	    assertEquals(MSG_OPERACAO_REALIZADA_PARCIALMENTE_MEMBROS_NAO_SALVOS, exception.getMembrosNaoSalvosResponse().getMessage());
 	    assertEquals(2, exception.getMembrosNaoSalvosResponse().getMembrosNaoVinculados().size());
 	    assertEquals(
 	            String.format(MSG_FORMATADA_MEMBRO_NAO_SALVO,
-	                    pessoaNaoFuncionario.getId(), pessoaNaoFuncionario.getNome(), pessoaNaoFuncionario.isFuncionario()),
+	                    idPessoaNaoFuncionario, pessoaNaoFuncionario.getNome(), pessoaNaoFuncionario.isFuncionario()),
 	            exception.getMembrosNaoSalvosResponse().getMembrosNaoVinculados().get(0)
 	    );
 	}
@@ -184,14 +195,14 @@ public class MemebroSeviceTest {
 	@DisplayName("Deve lançar MembroErrorException ao ocorrer um erro inesperado.")
 	void teste04() throws PessoaNotFoundException, RegraNegocioException, ProjetoNotFoundException {
 		List<MembroRequest> membrosRequest = new ArrayList<>();
-		membrosRequest.add(MembroRequest.builder().idPessoa(pessoaFuncionario.getId()).build());
-		membrosRequest.add(MembroRequest.builder().idPessoa(pessoaNaoFuncionario.getId()).build());
+		membrosRequest.add(MembroRequest.builder().idPessoa(idPessoaFuncionario).build());
+		membrosRequest.add(MembroRequest.builder().idPessoa(idPessoaNaoFuncionario).build());
 		
 		when(projetoRepository.existsById(anyLong())).thenThrow(new NoResultException());
 	    
 	   assertThrows(
 			   MembroErrorException.class,
-	            () -> membroService.vincularMembrosProjeto(pessoaFuncionario.getId(), membrosRequest),  
+	            () -> membroService.vincularMembrosProjeto(idPessoaFuncionario, membrosRequest),  
         		MSG_ERROR_NAO_FOI_POSSIVEL_SALVAR_OS_MEMBROS);
 	}
 	
@@ -199,14 +210,14 @@ public class MemebroSeviceTest {
 	@DisplayName("Deve lançar MembroErrorException ao vincular membros a um projeto.")
 	void teste05() throws PessoaNotFoundException, RegraNegocioException, ProjetoNotFoundException {
 		List<MembroRequest> membrosRequest = new ArrayList<>();
-		membrosRequest.add(MembroRequest.builder().idPessoa(pessoaFuncionario.getId()).build());
-		membrosRequest.add(MembroRequest.builder().idPessoa(pessoaNaoFuncionario.getId()).build());
+		membrosRequest.add(MembroRequest.builder().idPessoa(idPessoaFuncionario).build());
+		membrosRequest.add(MembroRequest.builder().idPessoa(idPessoaNaoFuncionario).build());
 		
 		when(projetoRepository.existsById(anyLong())).thenThrow(new CannotGetJdbcConnectionException(MSG_ERROR_CONNECTION_TIME_OUT));
 	    
 	   assertThrows(
 			   MembroErrorException.class,
-	            () -> membroService.vincularMembrosProjeto(pessoaFuncionario.getId(), membrosRequest),  
+	            () -> membroService.vincularMembrosProjeto(idPessoaFuncionario, membrosRequest),  
 	            MSG_ERROR_CONNECTION_TIME_OUT);
 	}
 

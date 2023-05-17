@@ -38,6 +38,9 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/jsp/projetos")
 public class ProjetoController {
 
+	private static final String MSG_MESSAGE = "message";
+	private static final String MSG_OPERACAO_REALIZADA_COM_SUCESSO = "Operação realizada com sucesso!";
+	
 	private final ProjetoService portfolioService;
 
 	@ResponseBody
@@ -46,7 +49,7 @@ public class ProjetoController {
 		portfolioService.cadastrarProjeto(projetoResquest);
 
 		Map<String, String> response = new HashMap<>();
-		response.put("message", "Operação realizada com sucesso!");
+		response.put(MSG_MESSAGE, MSG_OPERACAO_REALIZADA_COM_SUCESSO);
 
 		return response;
 	}
@@ -79,7 +82,7 @@ public class ProjetoController {
 		portfolioService.atualizarProjeto(id, projetoResquest);
 
 		Map<String, String> response = new HashMap<>();
-		response.put("message", "Operação realizada com sucesso!");
+		response.put(MSG_MESSAGE, MSG_OPERACAO_REALIZADA_COM_SUCESSO);
 
 		return response;
 	}
@@ -92,7 +95,7 @@ public class ProjetoController {
 		portfolioService.excluirProjeto(id, pageable);
 
 		Map<String, String> response = new HashMap<>();
-		response.put("message", "Operação realizada com sucesso!");
+		response.put(MSG_MESSAGE, MSG_OPERACAO_REALIZADA_COM_SUCESSO);
 		return response;
 	}
 }

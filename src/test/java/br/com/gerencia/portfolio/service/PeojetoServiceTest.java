@@ -46,7 +46,7 @@ import br.com.gerencia.portfolio.validator.ProjetoValidator;
 
 @ExtendWith(MockitoExtension.class)
 @ContextConfiguration(classes = {ProjetoService.class, ProjetoMapperImpl.class, ProjetoValidator.class, PessoaValidator.class})
-public class PeojetoServiceTest {
+class PeojetoServiceTest {
 	
 	private static final String MSG_ERRO_PESSOA_NAO_ENCONTRADA_COM_O_ID = "Pessoa não encontrada com o id: %d";
 
