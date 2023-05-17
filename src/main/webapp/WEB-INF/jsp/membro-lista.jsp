@@ -22,22 +22,9 @@
         <div class="row justify-content-center align-items-center">
             <div class="col-sm-12 col-md-10">
                 <div id="header-page" class="header">
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item">
-								<a class="nav-link" href="/">Home</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="/jsp/projetos">Projetos</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="/jsp/pessoas">Pessoas</a>
-							</li>
-							<li class="nav-item active">
-								<a class="nav-link" href="/jsp/projetos/1/membros">Membros</a>
-							</li>
-                        </ul>
-                    </nav>
+                    <c:import url="templates/navbar.jsp">
+                        <c:param name="activeNavItem" value="membros" />
+                    </c:import>
                 </div>
                 <div class="table-responsive">
                     <table class="table">

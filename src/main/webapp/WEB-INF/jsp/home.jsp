@@ -8,29 +8,15 @@
     <title>Home - Gestão de Portfolio</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
-
 </head>
 <body>
     <div class="container-fluid">
 		<div class="row justify-content-center align-items-center">
             <div class="col-sm-12 col-md-10">
 				<div id="header-page" class="header">
-					<nav class="navbar navbar-expand-lg navbar-light bg-light">
-						<ul class="navbar-nav mr-auto">
-							<li class="nav-item active">
-								<a class="nav-link" href="/">Home</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="/jsp/projetos">Projetos</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="/jsp/pessoas">Pessoas</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="/jsp/projetos/1/membros">Membros</a>
-							</li>
-						</ul>
-					</nav>
+					<c:import url="templates/navbar.jsp">
+						<c:param name="activeNavItem" value="home" />
+					</c:import>
 				</div>
 				<div class="content d-flex justify-content-center align-items-center">
 					<div class="container-fluid col-md-10" >
