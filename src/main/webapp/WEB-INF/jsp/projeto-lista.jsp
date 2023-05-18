@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -30,7 +30,7 @@
                 <div class="content">
                     <div class="row">
                         <div class="col d-flex align-items-center">
-                          <h3>Projetos</h3>
+                          <h3 id="titulo-projetos">Projetos</h3>
                           <div class="col d-flex align-items-center ml-auto">
                               <div class="input-group">
                                   <input type="text" id="campoPesquisar" class="form-control" placeholder="Pesquisa por ID, Nome ou Descrição do Projeto">
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table id="tabela-projetos" class="table table-striped">
+                        <table id="tabela-projetos" class="table table-striped" aria-describedby="titulo-projetos">
                             <thead>
                                 <tr>
                                     <th style="width: 10px;">ID</th>

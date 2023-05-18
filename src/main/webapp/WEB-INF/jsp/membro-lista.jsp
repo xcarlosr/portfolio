@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Home - Gestão de Portfolio</title>
@@ -27,9 +27,9 @@
                     </c:import>
                 </div>
                 <div class="table-responsive">
-                    <table class="table">
-                        <hr>
-                        <h4>Projeto</h4>
+                    <hr>
+                    <h4 id="titulo-proejtos">Projeto</h4>
+                    <table class="table" aria-describedby="titulo-proejtos">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -48,8 +48,8 @@
                         </tbody>
                     </table>
                     <hr>
-                    <h4>Membros</h4>
-                    <table id="tabela-membros" class="table table-striped">
+                    <h4 id="titulo-membros">Membros</h4>
+                    <table id="tabela-membros" class="table table-striped" aria-describedby="titulo-membros">
                         <thead>
                             <tr>
                                 <th>ID</th>
