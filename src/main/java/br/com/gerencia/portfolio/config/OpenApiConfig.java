@@ -17,10 +17,12 @@ public class OpenApiConfig {
 	private static final OpenAPI OPEN_API = new OpenAPI();
 
 	@Bean
-	@Scope("application")
-	public OpenAPI springOpenAPI(final BuildProperties buildProperties) {
-		return OPEN_API.info(new Info().title(buildProperties.get("title"))
-				.description(buildProperties.get("description")).version(buildProperties.getVersion()));
-	}
-
+    @Scope("application")
+    public OpenAPI springOpenAPI(final BuildProperties buildProperties) {
+        return OPEN_API
+            .info(new Info()
+                .title(buildProperties.get("title"))
+                .description(buildProperties.get("description"))
+                .version(buildProperties.getVersion()));
+    }
 }

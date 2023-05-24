@@ -30,7 +30,7 @@ public class MemebroRestController {
 
     private final MembroService membroService;
     
-    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MembroResponse> listarMembrosPaginado(@PathVariable Long idProjeto){
         return ResponseEntity.ok(membroService.listarMembros(idProjeto));
     }

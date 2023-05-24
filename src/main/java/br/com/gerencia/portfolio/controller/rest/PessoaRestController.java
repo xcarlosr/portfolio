@@ -39,13 +39,13 @@ public class PessoaRestController {
     }
 
 
-    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<PessoaResponse>> listarPessoa(
             @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
         return ResponseEntity.ok().body(pessoaService.listarPaginado(pageable));
     }
     
-    @GetMapping(value = "/{id:[0-9]}", consumes = MediaType.APPLICATION_JSON_VALUE,  produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id:[0-9]}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PessoaResponse> consultarPessoa(@PathVariable Long id) {
     	return ResponseEntity.ok().body(pessoaService.consultarPessoa(id));
     }

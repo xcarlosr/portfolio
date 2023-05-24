@@ -34,33 +34,33 @@ public class ProjetoRestController {
 
 	private final ProjetoService projetoService;
 
-	@PostMapping(consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<ProjetoResponse>> cadastrarProjeto(@RequestBody ProjetoRequest projetoResquest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(projetoService.cadastrarProjeto(projetoResquest));
     }
 
-    @GetMapping(consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Page<ProjetoResponse> listarProjetos(
             @PageableDefault(page = 0, size = 5, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
         return projetoService.listarProjetos(pageable);
     }
 
-    @GetMapping(value = "/{id}", consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id:[0-9]}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<ProjetoResponse>> consultarProjeto(@PathVariable Long id) {
         return ResponseEntity.ok().body(projetoService.consultarProjeto(id));
     }
 
-    @PutMapping(value = "/{id}", consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id:[0-9]}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<ProjetoResponse>> atualizarProjeto(@PathVariable Long id, @RequestBody ProjetoRequest projetoResquest) {
        return ResponseEntity.ok().body(projetoService.atualizarProjeto(id, projetoResquest));
     }
 
-    @PatchMapping(value = "/{id}", consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(value = "/{id:[0-9]}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<ProjetoResponse>> atualizarParcialProjeto(@PathVariable Long id, @RequestBody ProjetoRequest projetoResquest) {
         return ResponseEntity.ok().body(projetoService.atualizarProjeto(id, projetoResquest));
     }
 
-    @DeleteMapping(value = "/{id}", consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/{id:[0-9]}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<ProjetoResponse>> excluirProjeto(
             @PathVariable Long id,
             @PageableDefault(page = 0, size = 5, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
