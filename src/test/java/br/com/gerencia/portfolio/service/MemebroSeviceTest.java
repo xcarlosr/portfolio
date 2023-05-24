@@ -32,7 +32,7 @@ import br.com.gerencia.portfolio.entity.Projeto;
 import br.com.gerencia.portfolio.enums.ProjetoRiscoEnum;
 import br.com.gerencia.portfolio.enums.ProjetoStatusEnum;
 import br.com.gerencia.portfolio.exception.MembroErrorException;
-import br.com.gerencia.portfolio.exception.MembrosNaosalvosException;
+import br.com.gerencia.portfolio.exception.MembrosNaoSalvosException;
 import br.com.gerencia.portfolio.exception.PessoaNotFoundException;
 import br.com.gerencia.portfolio.exception.ProjetoNotFoundException;
 import br.com.gerencia.portfolio.exception.RegraNegocioException;
@@ -142,7 +142,7 @@ class MemebroSeviceTest {
 	@Test
 	@DisplayName("Deve vincular membros a um projeto com sucesso.")
 	void teste01() throws PessoaNotFoundException, RegraNegocioException,
-								ProjetoNotFoundException, MembrosNaosalvosException {
+								ProjetoNotFoundException, MembrosNaoSalvosException {
 		
 		when(projetoRepository.existsById(anyLong())).thenReturn(true);
 
@@ -154,7 +154,7 @@ class MemebroSeviceTest {
 	
 	@Test
 	@DisplayName("Deve lançar ProjetoNotFoundException ao vincular membros a um projeto inexistente.")
-	void teste02() throws PessoaNotFoundException, RegraNegocioException, MembrosNaosalvosException {
+	void teste02() throws PessoaNotFoundException, RegraNegocioException, MembrosNaoSalvosException {
 	    
 	    when(projetoRepository.existsById(any())).thenReturn(false);
 
@@ -177,8 +177,8 @@ class MemebroSeviceTest {
 	    when(membroMapper.mapToListMembro(anyLong(), any())).thenReturn(membros);
 	    when(pessoaValidator.getPessoaById(anyLong())).thenReturn(pessoaNaoFuncionario);
 	    
-	    MembrosNaosalvosException exception = assertThrows(
-	            MembrosNaosalvosException.class,
+	    MembrosNaoSalvosException exception = assertThrows(
+	            MembrosNaoSalvosException.class,
 	            () -> membroService.vincularMembrosProjeto(idPessoaNaoFuncionario, membrosRequest)
 	    );
 	    

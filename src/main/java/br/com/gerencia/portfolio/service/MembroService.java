@@ -13,7 +13,7 @@ import br.com.gerencia.portfolio.dto.response.MembrosNaoSalvosResponse;
 import br.com.gerencia.portfolio.entity.Membro;
 import br.com.gerencia.portfolio.entity.Pessoa;
 import br.com.gerencia.portfolio.exception.MembroErrorException;
-import br.com.gerencia.portfolio.exception.MembrosNaosalvosException;
+import br.com.gerencia.portfolio.exception.MembrosNaoSalvosException;
 import br.com.gerencia.portfolio.exception.PessoaNotFoundException;
 import br.com.gerencia.portfolio.exception.ProjetoNotFoundException;
 import br.com.gerencia.portfolio.exception.RegraNegocioException;
@@ -58,7 +58,7 @@ public class MembroService {
 
 	@Transactional(propagation = Propagation.REQUIRED, timeout = 10)
 	public String vincularMembrosProjeto(Long idProjeto, List<MembroRequest> listMembroRequest)
-			throws PessoaNotFoundException, RegraNegocioException, ProjetoNotFoundException, MembrosNaosalvosException {
+			throws PessoaNotFoundException, RegraNegocioException, ProjetoNotFoundException, MembrosNaoSalvosException {
 		List<String> listaMembrosNaoSalvos = new ArrayList<>();
 		try {
 
@@ -78,14 +78,14 @@ public class MembroService {
 			});
 
 			if (!listaMembrosNaoSalvos.isEmpty())
-				throw new MembrosNaosalvosException(MembrosNaoSalvosResponse.builder()
+				throw new MembrosNaoSalvosException(MembrosNaoSalvosResponse.builder()
 						.message(MSG_OPERACAO_REALIZADA_PARCIALMENTE_MEMBROS_NAO_SALVOS)
 						.membrosNaoVinculados(listaMembrosNaoSalvos).build());
 
 			return MSG_OPERACAO_REALIZADO_COM_SUCESSO;
 
 		} catch (ProjetoNotFoundException | PessoaNotFoundException | RegraNegocioException
-				| MembrosNaosalvosException ex) {
+                 | MembrosNaoSalvosException ex) {
 			throw ex;
 		} catch (Exception ex) {
 			throw new MembroErrorException(MSG_ERROR_NAO_FOI_POSSIVEL_SALVAR_OS_MEMBROS, ex);

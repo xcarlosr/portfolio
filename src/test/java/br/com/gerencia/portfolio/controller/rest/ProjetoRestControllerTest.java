@@ -32,8 +32,7 @@ import io.restassured.http.ContentType;
  * @since 1.0
  */
 @Sql(scripts = {"classpath:/sql/data-projeto.sql"}, executionPhase=Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-public class ProjetoRestControllerTest extends ConfigTest {
-
+class ProjetoRestControllerTest extends ConfigTest {
 
     @SpyBean
     private ProjetoRepository projetoRepository;

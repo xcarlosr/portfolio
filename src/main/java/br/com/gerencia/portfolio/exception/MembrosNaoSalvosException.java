@@ -9,13 +9,13 @@ import lombok.Getter;
  * @since 1.0
  */
 @Getter
-public class MembrosNaosalvosException extends RuntimeException {
+public class MembrosNaoSalvosException extends RuntimeException {
 
 	private static final long serialVersionUID = -1877231711881766846L;
 	
 	private final MembrosNaoSalvosResponse membrosNaoSalvosResponse;
     
-    public MembrosNaosalvosException(MembrosNaoSalvosResponse membrosNaoSalvosResponse){
+    public MembrosNaoSalvosException(MembrosNaoSalvosResponse membrosNaoSalvosResponse){
         this.membrosNaoSalvosResponse = membrosNaoSalvosResponse;
     }
 

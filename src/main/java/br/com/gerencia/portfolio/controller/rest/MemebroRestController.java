@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gerencia.portfolio.dto.request.MembroRequest;
 import br.com.gerencia.portfolio.dto.response.MembroResponse;
-import br.com.gerencia.portfolio.exception.MembrosNaosalvosException;
+import br.com.gerencia.portfolio.exception.MembrosNaoSalvosException;
 import br.com.gerencia.portfolio.service.MembroService;
 import lombok.RequiredArgsConstructor;
 
@@ -41,7 +41,7 @@ public class MemebroRestController {
         try{
             membroService.vincularMembrosProjeto(idProjeto, listMembros);
             return ResponseEntity.status(HttpStatus.CREATED).body("Operação realizada com sucesso");
-        } catch (MembrosNaosalvosException ex){
+        } catch (MembrosNaoSalvosException ex){
             return ResponseEntity.status(HttpStatus.CREATED).body(ex.getMembrosNaoSalvosResponse());
         }
     }
