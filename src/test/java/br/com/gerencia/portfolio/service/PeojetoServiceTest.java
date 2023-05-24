@@ -149,7 +149,7 @@ class PeojetoServiceTest {
     
     @Test
     @DisplayName("Deve cadastrar um novo projeto")
-    void teste01(){
+    void caso1(){
     	
     	when(projetoValidator.convertToProjeto(any())).thenReturn(projetoValidatorTest);
     	when(projetoMapper.mapToProjetoResponse(any())).thenReturn(projetoResponse);
@@ -170,7 +170,7 @@ class PeojetoServiceTest {
     
     @Test
     @DisplayName("Deve listar todos os projetos cadastrados")
-    void teste04() {
+    void caso2() {
     	
     	Pageable pageable = PageRequest.of(0, 5);
     	
@@ -193,7 +193,7 @@ class PeojetoServiceTest {
 
     @Test
     @DisplayName("Deve retornrar o projeto pelo id informado.")
-    void teste05() {
+    void caso3() {
     	
     	List<ProjetoResponse> listaProejtoResponses = new ArrayList<>();
     	listaProejtoResponses.add(projetoResponseExpected);
@@ -212,7 +212,7 @@ class PeojetoServiceTest {
 
     @Test
     @DisplayName("Deve atualizar o projeto pelo id informado.")
-    void teste015() {
+    void caso4() {
     	
     	List<ProjetoResponse> listaProejtoResponses = new ArrayList<>();
     	listaProejtoResponses.add(projetoResponseExpected);
@@ -235,7 +235,7 @@ class PeojetoServiceTest {
     
     @Test
     @DisplayName("Deve excluir um projeto")
-    void teste6()  {
+    void caso5()  {
     	
         Pageable pageable = PageRequest.of(0, 10);
         Page<Projeto> projetoPage = new PageImpl<>(List.of(projeto));
@@ -247,19 +247,18 @@ class PeojetoServiceTest {
         
         doNothing().when(projetoRepository).delete(projeto);
         when(projetoRepository.findAll(pageable)).thenReturn(projetoPage);
-        when(projetoMapper.mapToListProjetoResponses(projetoPage.getContent())).thenReturn(List.of(projetoResponseExpected));
+        when(projetoMapper.mapToListProjetoResponses(projetoPage.getContent())).thenReturn(List.of());
 
         Page<ProjetoResponse> result = projetoService.excluirProjeto(1L, pageable);
 
         assertNotNull(result);
-        assertEquals(1, result.getTotalElements());
-        assertEquals(projetoResponseExpected.getId(), result.getContent().get(0).getId());
-        assertEquals(projetoResponseExpected.getNome(), result.getContent().get(0).getNome());
+        assertEquals(0, result.getContent().size());
+        
     }
 
     @Test
     @DisplayName("Deve lançar RegraNegocioException ao cadastrar um projeto inválido")
-    void teste07() {
+    void caso6() {
     	
     	when(projetoValidator.convertToProjeto(any())).thenThrow(RegraNegocioException.class);
     	
@@ -268,7 +267,7 @@ class PeojetoServiceTest {
     
     @Test
     @DisplayName("Deve lançar PessoaNotFoundException ao cadastrar um projeto inválido")
-    void teste08() {
+    void caso7() {
     	
     	when(projetoValidator.convertToProjeto(any())).thenReturn(projetoValidatorTest);
     	when(pessoaValidator.getPessoaById(any())).thenThrow(

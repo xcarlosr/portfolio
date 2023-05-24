@@ -32,38 +32,38 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/projetos")
 public class ProjetoRestController {
 
-	private final ProjetoService portfolioService;
+	private final ProjetoService projetoService;
 
 	@PostMapping(consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<ProjetoResponse>> cadastrarProjeto(@RequestBody ProjetoRequest projetoResquest) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(portfolioService.cadastrarProjeto(projetoResquest));
+        return ResponseEntity.status(HttpStatus.CREATED).body(projetoService.cadastrarProjeto(projetoResquest));
     }
 
     @GetMapping(consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Page<ProjetoResponse> listarProjetos(
             @PageableDefault(page = 0, size = 5, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        return portfolioService.listarProjetos(pageable);
+        return projetoService.listarProjetos(pageable);
     }
 
     @GetMapping(value = "/{id}", consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<ProjetoResponse>> consultarProjeto(@PathVariable Long id) {
-        return ResponseEntity.ok().body(portfolioService.consultarProjeto(id));
+        return ResponseEntity.ok().body(projetoService.consultarProjeto(id));
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<ProjetoResponse>> atualizarProjeto(@PathVariable Long id, @RequestBody ProjetoRequest projetoResquest) {
-       return ResponseEntity.ok().body(portfolioService.atualizarProjeto(id, projetoResquest));
+       return ResponseEntity.ok().body(projetoService.atualizarProjeto(id, projetoResquest));
     }
 
     @PatchMapping(value = "/{id}", consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<ProjetoResponse>> atualizarParcialProjeto(@PathVariable Long id, @RequestBody ProjetoRequest projetoResquest) {
-        return ResponseEntity.ok().body(portfolioService.atualizarProjeto(id, projetoResquest));
+        return ResponseEntity.ok().body(projetoService.atualizarProjeto(id, projetoResquest));
     }
 
     @DeleteMapping(value = "/{id}", consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<ProjetoResponse>> excluirProjeto(
             @PathVariable Long id,
             @PageableDefault(page = 0, size = 5, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        return ResponseEntity.ok().body(portfolioService.excluirProjeto(id, pageable));
+        return ResponseEntity.ok().body(projetoService.excluirProjeto(id, pageable));
     }
 }

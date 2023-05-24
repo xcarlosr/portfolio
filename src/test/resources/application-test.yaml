@@ -1,23 +1,30 @@
-package br.com.gerencia.portfolio;
-
-import java.util.TimeZone;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-
-@SpringBootApplication
-public class PortfolioApplication extends SpringBootServletInitializer {
-
-	@Override
-	public SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(PortfolioApplication.class);
-	}
-	
-	public static void main(String[] args) {
-		TimeZone.setDefault(TimeZone.getTimeZone("GMT-03:00"));
-		SpringApplication.run(PortfolioApplication.class, args);
-	}
-
-}
+spring:
+  init:
+   mode: always
+  web:
+    locale: pt_BR
+    locale-resolver: fixed
+  flyway:
+    enabled: false
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema-h2.sql
+  datasource:
+    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1;Mode=PostgreSQL
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+  jackson:
+    serialization:
+      write_dates_as_timestamps: false
+  jpa:
+    show-sql: false
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        format_sql: true
+        enable_lazy_load_no_trans: true
+    hibernate:
+      ddl-auto: none

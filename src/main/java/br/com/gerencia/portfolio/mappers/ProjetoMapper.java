@@ -24,9 +24,9 @@ public interface ProjetoMapper {
 
     @Mapping(source = "risco", target = "risco")
     @Mapping(source = "status", target = "status")
-    @Mapping(source = "dataInicio", target = "dataInicio")
-    @Mapping(source = "dataPrevisaoFim", target = "dataPrevisaoFim")
-    @Mapping(source = "dataFim", target = "dataFim")
+    @Mapping(source = "dataInicio", target = "dataInicio", conditionExpression = "java(projeto.getDataInicio() != null)", qualifiedByName = "localDateToString")
+    @Mapping(source = "dataPrevisaoFim", target = "dataPrevisaoFim", conditionExpression = "java(projeto.getDataPrevisaoFim() != null)", qualifiedByName = "localDateToString")
+    @Mapping(source = "dataFim", target = "dataFim", conditionExpression = "java(projeto.getDataFim() != null)", qualifiedByName = "localDateToString")
     @Mapping(source = "orcamento", target = "orcamento")
     ProjetoResponse mapToProjetoResponse(Projeto projeto);
 

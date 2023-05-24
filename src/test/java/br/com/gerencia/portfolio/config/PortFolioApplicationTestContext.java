@@ -1,6 +1,18 @@
-package br.com.gerencia.portfolio.config;/**
+package br.com.gerencia.portfolio.config;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
  * @author Carlos Roberto
- * @since 1.0
  * @created 21/05/2023
- */public class PortFolioApplicationTestContext {
+ * @since 1.0
+ */
+@Configuration
+@EnableAspectJAutoProxy
+@Transactional
+@ComponentScan(basePackages = {"br.com.gerencia.portfolio"})
+public class PortFolioApplicationTestContext {
 }
