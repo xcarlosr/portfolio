@@ -61,9 +61,8 @@ O SonarQube é uma plataforma de análise estática de código que verifica a qu
 
 Especificação que descreve e padroniza a documentação e a integração de APIs REST. Ele permite garantir a qualidade do código e facilita o compartilhamento de contratos entre equipes. Para acessar a documentação da API do projeto, basta acessar a URL: `http://localhost:8080/swagger-ui/index.html` com a aplicação em execução.
 
-### Tela OpenApi
+### Tela do Swagger gerada pelo OpenApi
 ![alt tag](https://github.com/xcarlosr/portfolio/blob/main/imagens/open-api-swagger.png?raw=true)
-
 
 
 ## Telas da Aplicação
