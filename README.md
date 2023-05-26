@@ -66,7 +66,7 @@ Especificação que descreve e padroniza a documentação e a integração de AP
 
 
 ### Tela relatório SonarQube
-![alt tag](https://github.com/xcarlosr/portfolio/blob/main/imagens/sonar_cobertura_testes?raw=true)
+![alt tag](https://github.com/xcarlosr/portfolio/blob/main/imagens/sonar_cobertura_testes.png?raw=true)
 
 
 ## Telas da Aplicação
