@@ -35,9 +35,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProjetoService {
 	
-    private static final String PESSOA_NAO_ENCONTRATO_COM_O_ID = "Pessoa não encontrato com o id: %d";
+    private static final String PESSOA_NAO_ENCONTRATO_COM_O_ID = "Pessoa não encontrada com o id: %d";
 
-	private static final String MSG_PROJETO_NAO_ENCONTRATO_COM_O_ID = "Projeto não encontrato com o id: %d";
+	private static final String MSG_PROJETO_NAO_ENCONTRATO_COM_O_ID = "Projeto não encontrado com o id: %d";
 
 	private static final String MSG_RROR_AO_TENTAR_EXCLUIR_O_PROJETO_COM_O_ID = "rror ao tentar excluir o projeto com o id: %d";
 

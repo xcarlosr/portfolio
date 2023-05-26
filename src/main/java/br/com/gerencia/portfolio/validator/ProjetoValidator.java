@@ -41,7 +41,7 @@ public class ProjetoValidator {
     }
 
     public ProjetoValidator convertToProjeto(ProjetoRequest request) throws PessoaNotFoundException {
-        this.projeto = projetoMapper.mapToProejto(request);
+        this.projeto = projetoMapper.mapToProjeto(request);
         Pessoa pessoa = getPessoa(projeto.getGerente().getId());
         this.projeto.setGerente(pessoa);
         return this;

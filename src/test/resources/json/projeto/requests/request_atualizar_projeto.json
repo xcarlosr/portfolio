@@ -1,0 +1,10 @@
+{
+  "nome": "Projeto 2",
+  "dataInicio": "2023-05-10",
+  "dataPrevisaoFim": "2023-06-10",
+  "descricao": "Descrição do Projeto 2",
+  "status": "EM_ANALISE",
+  "orcamento": "10000",
+  "risco": "BAIXO_RISCO",
+  "idGerente": 1
+}

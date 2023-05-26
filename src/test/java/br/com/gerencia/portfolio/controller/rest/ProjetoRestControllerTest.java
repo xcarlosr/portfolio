@@ -4,6 +4,7 @@ import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -25,6 +26,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import br.com.gerencia.portfolio.config.ConfigTest;
 import br.com.gerencia.portfolio.dto.request.ProjetoRequest;
 import br.com.gerencia.portfolio.dto.response.ProjetoResponse;
+import br.com.gerencia.portfolio.entity.Projeto;
 import br.com.gerencia.portfolio.exception.GlobalExceptionHandler.ErrorResponse;
 import br.com.gerencia.portfolio.mappers.ProjetoMapper;
 import br.com.gerencia.portfolio.repository.PessoaRepository;
@@ -149,7 +151,7 @@ class ProjetoRestControllerTest extends ConfigTest {
     @DisplayName("Deve lançar uma ProjetoErrorException, ao tentar cadastrar um novo projeto.")
     void caso04() throws JsonMappingException, JsonProcessingException {
     	
-    	when(projetoMapper.mapToProejto(any(ProjetoRequest.class))).thenThrow(RuntimeException.class);
+    	when(projetoMapper.mapToProjeto(any(ProjetoRequest.class))).thenThrow(RuntimeException.class);
     	
     	ErrorResponse errorResponse = given()
                 .contentType(ContentType.JSON)
@@ -193,6 +195,149 @@ class ProjetoRestControllerTest extends ConfigTest {
 		verify(projetoService, times(1)).listarProjetos(any(Pageable.class));
     	
     }
+    
+    
+    @Test
+    @DisplayName("Deve lançar uma ProjetoNotFoundException, ao tentar consultar um projeto por id.")
+    void caso06() throws JsonMappingException, JsonProcessingException {
+    	
+    	when(projetoMapper.mapToListProjetoResponses(anyList())).thenThrow(RuntimeException.class);
 
+    	ErrorResponse errorResponse = given()
+			.when()
+				.get("/projetos/99")
+			.then()
+    			.assertThat()
+    			.statusCode(HttpStatus.NOT_FOUND.value())
+    			.extract().as(ErrorResponse.class);
+    	
+    	
+    	ErrorResponse erroResponseExpected =  getResponseExpected("projeto/errors/response_msg_error_buscar_projeto_por_id.json", ErrorResponse.class);
+		
+		assertEquals(erroResponseExpected.getStatus(), errorResponse.getStatus());
+		assertEquals(erroResponseExpected.getMessage(), errorResponse.getMessage());
+		
+		verify(projetoService, times(1)).consultarProjeto(any(Long.class));
+    	
+    }
+
+    @Test
+    @DisplayName("Deve lançar uma ProjetoErrorException, ao tentar consultar um projeto por id.")
+    void caso07() throws JsonMappingException, JsonProcessingException {
+    	
+    	when(projetoMapper.mapToListProjetoResponses(anyList())).thenThrow(RuntimeException.class);
+
+    	ErrorResponse errorResponse = given()
+			.when()
+				.get("/projetos/2")
+			.then()
+    			.assertThat()
+    			.statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+    			.extract().as(ErrorResponse.class);
+    	
+    	
+    	ErrorResponse erroResponseExpected =  getResponseExpected("projeto/errors/response_msg2_error_busucar_projeto_por_id.json", ErrorResponse.class);
+		
+		assertEquals(erroResponseExpected.getStatus(), errorResponse.getStatus());
+		assertEquals(erroResponseExpected.getMessage(), errorResponse.getMessage());
+		
+		verify(projetoService, times(1)).consultarProjeto(any(Long.class));
+    	
+    }
+    
+    
+    @Test
+    @DisplayName("Deve lançar uma RegraNegocioException, ao tentar atualizar um projeto quando o gerente não é funcionário.")
+    void caso08() throws JsonMappingException, JsonProcessingException {
+    	
+    	ErrorResponse errorResponse = given()
+                .contentType(ContentType.JSON)
+                .body(getJsonAsString("projeto/requests/request_cadastrar_projeto_gerente_nao_funcionario.json"))
+            .when()
+                .put("/projetos/2")
+            .then()
+                .assertThat()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .extract().as(ErrorResponse.class);
+        
+        ErrorResponse erroResponseExpected =  getResponseExpected("projeto/errors/response_msg_error_gerente_nao_funcionario.json", ErrorResponse.class);
+
+        assertEquals(erroResponseExpected.getStatus(), errorResponse.getStatus());
+        assertEquals(erroResponseExpected.getMessage(), errorResponse.getMessage());
+
+        verify(projetoService, times(1)).atualizarProjeto(anyLong(), any(ProjetoRequest.class));
+    	
+    }
+    
+    @Test
+    @DisplayName("Deve lançar uma ProjetoNotFoundException, ao tentar atualizar um projeto quando o projeto não é encontrado.")
+    void caso09() throws JsonMappingException, JsonProcessingException{
+
+        ErrorResponse errorResponse = given()
+                .contentType(ContentType.JSON)
+                .body(getJsonAsString("projeto/requests/request_cadastrar_projeto_gerente_nao_encontrada.json"))
+            .when()
+            .put("/projetos/99")
+            .then()
+                .assertThat()
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .extract().as(ErrorResponse.class);
+        
+        ErrorResponse erroResponseExpected =  getResponseExpected("projeto/errors/response_msg_error_buscar_projeto_por_id.json", ErrorResponse.class);
+
+        assertEquals(erroResponseExpected.getStatus(), errorResponse.getStatus());
+        assertEquals(erroResponseExpected.getMessage(), errorResponse.getMessage());
+
+        verify(projetoService, times(1)).atualizarProjeto(anyLong(), any(ProjetoRequest.class));
+        
+    }
+    
+    @Test
+    @DisplayName("Deve lançar uma PessoaNotFoundException, ao tentar atualizar um projeto quando o pessoa não é encontrado.")
+    void caso10() throws JsonMappingException, JsonProcessingException{
+
+        ErrorResponse errorResponse = given()
+                .contentType(ContentType.JSON)
+                .body(getJsonAsString("projeto/requests/request_cadastrar_projeto_gerente_nao_encontrada.json"))
+            .when()
+            .put("/projetos/2")
+            .then()
+                .assertThat()
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .extract().as(ErrorResponse.class);
+        
+        ErrorResponse erroResponseExpected =  getResponseExpected("projeto/errors/response_msg_error_pessoa_nao_encontrada.json", ErrorResponse.class);
+
+        assertEquals(erroResponseExpected.getStatus(), errorResponse.getStatus());
+        assertEquals(erroResponseExpected.getMessage(), errorResponse.getMessage());
+
+        verify(projetoService, times(1)).atualizarProjeto(anyLong(), any(ProjetoRequest.class));
+    }
+    
+    @Test
+    @DisplayName("Deve lançar uma ProjetoErrorException, ao tentar atualizar um projeto.")
+    void caso11() throws JsonMappingException, JsonProcessingException {
+    	
+    	when(projetoMapper.mapProjetoToUpdate(any(ProjetoRequest.class), any(Projeto.class))).thenThrow(RuntimeException.class);
+    	
+    	ErrorResponse errorResponse = given()
+                .contentType(ContentType.JSON)
+                .body(getJsonAsString("projeto/requests/request_atualizar_projeto.json"))
+            .when()
+            .put("/projetos/2")
+            .then()
+                .assertThat()
+                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .extract().as(ErrorResponse.class);
+
+		ErrorResponse erroResponseExpected =  getResponseExpected("projeto/errors/response_msg_error_atualizar_projeto_por_id.json", ErrorResponse.class);
+		
+		assertEquals(erroResponseExpected.getStatus(), errorResponse.getStatus());
+		assertEquals(erroResponseExpected.getMessage(), errorResponse.getMessage());
+		
+		verify(projetoService, times(1)).atualizarProjeto(anyLong(), any(ProjetoRequest.class));
+    	
+    }
+        
 }
 

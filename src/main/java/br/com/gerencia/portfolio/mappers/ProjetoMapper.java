@@ -20,7 +20,7 @@ public interface ProjetoMapper {
     @Mapping(source = "risco", target = "risco")
     @Mapping(source = "status", target = "status")
     @Mapping(source = "idGerente", target = "gerente.id")
-    Projeto mapToProejto(ProjetoRequest projetoRequest);
+    Projeto mapToProjeto(ProjetoRequest projetoRequest);
 
     @Mapping(source = "risco", target = "risco")
     @Mapping(source = "status", target = "status")
@@ -34,41 +34,46 @@ public interface ProjetoMapper {
 
     default Projeto mapProjetoToUpdate(ProjetoRequest projetoRequest, Projeto projetoUpdate) {
 
+    	if (Objects.isNull(projetoRequest)) {
+            return projetoUpdate;
+        }
+
         if (Objects.nonNull(projetoRequest.getNome())) {
             projetoUpdate.setNome(projetoRequest.getNome());
         }
-
+        
         if (Objects.nonNull(projetoRequest.getDataInicio())) {
             projetoUpdate.setDataInicio(projetoRequest.getDataInicio());
         }
-
+        
         if (Objects.nonNull(projetoRequest.getDataPrevisaoFim())) {
             projetoUpdate.setDataPrevisaoFim(projetoRequest.getDataPrevisaoFim());
         }
-
+        
         if (Objects.nonNull(projetoRequest.getDataFim())) {
             projetoUpdate.setDataFim(projetoRequest.getDataFim());
         }
-
+        
         if (Objects.nonNull(projetoRequest.getDescricao())) {
             projetoUpdate.setDescricao(projetoRequest.getDescricao());
         }
-
+        
         if (Objects.nonNull(projetoRequest.getStatus())) {
             projetoUpdate.setStatus(projetoRequest.getStatus());
         }
-
+        
         if (Objects.nonNull(projetoRequest.getOrcamento())) {
             projetoUpdate.setOrcamento(projetoRequest.getOrcamento());
         }
-
+        
         if (Objects.nonNull(projetoRequest.getRisco())) {
             projetoUpdate.setRisco(projetoRequest.getRisco());
         }
-
+        
         if (Objects.nonNull(projetoRequest.getIdGerente())) {
             projetoUpdate.getGerente().setId(projetoRequest.getIdGerente());
         }
+
         return projetoUpdate;
     }
 }
