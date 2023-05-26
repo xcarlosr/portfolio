@@ -226,6 +226,13 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.11.0</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
@@ -301,6 +308,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
+					<encoding>UTF-8</encoding>
 					<useSystemClassLoader>false</useSystemClassLoader>
 				</configuration>
 			</plugin>

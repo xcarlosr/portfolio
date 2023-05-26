@@ -65,6 +65,10 @@ Especificação que descreve e padroniza a documentação e a integração de AP
 ![alt tag](https://github.com/xcarlosr/portfolio/blob/main/imagens/open-api-swagger.png?raw=true)
 
 
+### Tela relatório SonarQube
+![alt tag](https://github.com/xcarlosr/portfolio/blob/main/imagens/sonar_cobertura_testes?raw=true)
+
+
 ## Telas da Aplicação
 
 ### Tela Home

@@ -3,6 +3,7 @@ package br.com.gerencia.portfolio.config;
 import static com.github.tomakehurst.wiremock.client.WireMock.reset;
 import static io.restassured.RestAssured.enableLoggingOfRequestAndResponseIfValidationFails;
 
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -62,7 +63,6 @@ public abstract class ConfigTest {
      * @throws JsonProcessingException
      */
     public <T> List<T> getPageContent(String body, Class<T> type) throws JsonMappingException, JsonProcessingException {
-    	
     	JsonNode jsonResponse = objectMapper.readTree(body);
         JsonNode contentNode = jsonResponse.get("content");
 
@@ -78,8 +78,9 @@ public abstract class ConfigTest {
      * @param path
      * @param type
      * @return
-     * @throws JsonMappingException
-     * @throws JsonProcessingException
+     * @throws JsonProcessingException 
+     * @throws JsonMappingException 
+     * @throws IOException 
      */
     public <T> T getResponseExpected(String path, Class<T> type) throws JsonMappingException, JsonProcessingException{
     	 JsonNode jsonResponseExpected = objectMapper.readTree(getJsonAsString(path));

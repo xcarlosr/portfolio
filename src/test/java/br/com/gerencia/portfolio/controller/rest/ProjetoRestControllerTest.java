@@ -35,6 +35,7 @@ import br.com.gerencia.portfolio.service.ProjetoService;
 import br.com.gerencia.portfolio.validator.PessoaValidator;
 import br.com.gerencia.portfolio.validator.ProjetoValidator;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 
 /**
  * @author Carlos Roberto
@@ -44,7 +45,13 @@ import io.restassured.http.ContentType;
 @Sql(scripts = {"classpath:/sql/data-projeto.sql"}, executionPhase=Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 class ProjetoRestControllerTest extends ConfigTest {
 
-    @SpyBean
+    private static final int TOTAL_ELEMENTOS = 15;
+
+	private static final int PAGE_SIZE = 5;
+
+	private static final int PAGE_NUMBER = 0;
+
+	@SpyBean
     private ProjetoRepository projetoRepository;
 
     @SpyBean
@@ -73,7 +80,7 @@ class ProjetoRestControllerTest extends ConfigTest {
     @DisplayName("Deve cadastrar um novo projeto")
     void caso01() throws IOException {
     	
-        String responseBody = given()
+        Response response = given()
                 .contentType(ContentType.JSON)
                 .body(getJsonAsString("projeto/requests/request_cadastrar_projeto.json"))
             .when()
@@ -82,10 +89,10 @@ class ProjetoRestControllerTest extends ConfigTest {
                 .assertThat()
                 .statusCode(HttpStatus.CREATED.value())
                 .extract()
-                	.response().asString();
+                	.response();
 
 
-        ProjetoResponse projetoResponse = getPageContent(responseBody, ProjetoResponse.class).get(0);
+        ProjetoResponse projetoResponse = getPageContent(response.asString(), ProjetoResponse.class).get(0);
         
         ProjetoResponse projetoResponseSucesso = getResponseExpected("projeto/responses/response_cadastrar_projeto_sucesso.json", ProjetoResponse.class);
         
@@ -99,6 +106,40 @@ class ProjetoRestControllerTest extends ConfigTest {
         
         verify(projetoService, times(1)).cadastrarProjeto(any(ProjetoRequest.class));
 
+    }
+    
+    @Test
+    @DisplayName("Deve listar os projetos.")
+    void caso52() throws JsonMappingException, JsonProcessingException {
+    	
+    	Response response = given()
+			.when()
+				.get("/projetos")
+			.then()
+    			.assertThat()
+    			.statusCode(HttpStatus.OK.value())
+    			.extract()
+    				.response();
+    	
+    	ProjetoResponse projetoResponse = getPageContent(response.asString(), ProjetoResponse.class).get(0);
+    	
+    	
+    	ProjetoResponse projetoResponseSucesso = getResponseExpected("projeto/responses/response_listar_projeto_sucesso.json", ProjetoResponse.class);
+        
+        assertEquals(projetoResponseSucesso.getId(), projetoResponse.getId());
+        assertEquals(projetoResponseSucesso.getNome(), projetoResponse.getNome());
+        assertEquals(projetoResponseSucesso.getDescricao(), projetoResponse.getDescricao());
+        assertEquals(projetoResponseSucesso.getOrcamento(), projetoResponse.getOrcamento());
+        assertEquals(projetoResponseSucesso.getGerente().getId(), projetoResponse.getGerente().getId());
+        assertEquals(projetoResponseSucesso.getGerente().getNome(), projetoResponse.getGerente().getNome());
+        assertEquals(projetoResponseSucesso.getGerente().getCpf(), projetoResponse.getGerente().getCpf());
+        
+        assertEquals(PAGE_NUMBER, response.jsonPath().getInt("number"));
+        assertEquals(PAGE_SIZE, response.jsonPath().getInt("size"));
+        assertEquals(TOTAL_ELEMENTOS, response.jsonPath().getInt("totalElements"));
+		
+		verify(projetoService, times(1)).listarProjetos(any(Pageable.class));
+    	
     }
 
     @Test
@@ -171,6 +212,7 @@ class ProjetoRestControllerTest extends ConfigTest {
 		verify(projetoService, times(1)).cadastrarProjeto(any(ProjetoRequest.class));
     	
     }
+    
     
     @Test
     @DisplayName("Deve lançar uma ProjetoErrorException, ao tentar listar os projetos.")
