@@ -47,14 +47,17 @@ public class ProjetoService {
 
 	private static final String MSG_ERROR_AO_TENTAR_LISTAR_OS_PROJETOS = "Error ao tentar listar os projetos";
 
-	private static final String MSG_ERROR_AO_TENTAR_SALVAR_O_PROJETO = "Error ao tentar salvar o projeto.";
+	private static final String MSG_ERROR_AO_TENTAR_SALVAR_O_PROJETO = "Error ao tentar salvar o projeto";
     
 	private final PessoaRepository pessoaRepository;
+
     private final ProjetoRepository projetoRepository;
+
     private final ProjetoMapper projetoMapper;
+
     private final ProjetoValidator projetoValidator;
 
-    @Transactional(propagation = Propagation.REQUIRED, timeout = 10)
+    @Transactional(propagation = Propagation.REQUIRED, timeout = 30)
     public Page<ProjetoResponse> cadastrarProjeto(ProjetoRequest projetoRequest) throws RegraNegocioException, ProjetoErrorException, PessoaNotFoundException {
 
         try {
@@ -62,7 +65,7 @@ public class ProjetoService {
             projetoRepository.save(projeto);
             return getCreatePage(projeto);
 
-        } catch (RegraNegocioException | PessoaNotFoundException ex) {
+        } catch (PessoaNotFoundException | RegraNegocioException ex) {
             throw ex;
         } catch (Exception ex) {
             throw new ProjetoErrorException(MSG_ERROR_AO_TENTAR_SALVAR_O_PROJETO, ex);
@@ -82,7 +85,7 @@ public class ProjetoService {
 
     public Page<ProjetoResponse> consultarProjeto(Long id) throws ProjetoNotFoundException, ProjetoErrorException {
         try{
-            Projeto projeto = findByProjetoId(id);
+            Projeto projeto = findProjetoById(id);
 
             Pageable pageable = PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "id"));
             List<ProjetoResponse> projetoResponses = projetoMapper.mapToListProjetoResponses(List.of(projeto));
@@ -100,7 +103,7 @@ public class ProjetoService {
         
     	try {
     		
-            Projeto projetoUpdate = findByProjetoId(id);
+            Projeto projetoUpdate = findProjetoById(id);
             Pessoa pessoa = findByPessoaId(projetoRequest.getIdGerente());
             projetoUpdate.setGerente(pessoa);
 
@@ -117,16 +120,17 @@ public class ProjetoService {
         }
     }
 
-    public Page<ProjetoResponse> excluirProjeto(Long id, Pageable pageable) throws RegraNegocioException, ProjetoErrorException, PessoaNotFoundException  {
+    public Page<ProjetoResponse> excluirProjeto(Long id, Pageable pageable) throws RegraNegocioException, ProjetoErrorException,
+            ProjetoNotFoundException, PessoaNotFoundException  {
 
         try{
-            Projeto projeto = projetoValidator.setProjeto(findByProjetoId(id)).isFuncionario().isPossivelDeletar().getProjeto();
+            Projeto projeto = projetoValidator.setProjeto(findProjetoById(id)).isFuncionario().isPossivelDeletar().getProjeto();
             projetoRepository.delete(projeto);
             Page<Projeto> projetoPage = projetoRepository.findAll(pageable);
             List<ProjetoResponse> projetoResponses = projetoMapper.mapToListProjetoResponses(projetoPage.getContent());
             return new PageImpl<>(projetoResponses, pageable, projetoPage.getTotalElements());
 
-        } catch (RegraNegocioException | PessoaNotFoundException ex) {
+        } catch (ProjetoNotFoundException | PessoaNotFoundException | RegraNegocioException ex) {
             throw ex;
         } catch (Exception ex) {
             throw new ProjetoErrorException(String.format(MSG_RROR_AO_TENTAR_EXCLUIR_O_PROJETO_COM_O_ID, id), ex);
@@ -143,7 +147,7 @@ public class ProjetoService {
         }
     }
 
-    private Projeto findByProjetoId(Long id) {
+    private Projeto findProjetoById(Long id) {
         return projetoRepository.findById(id)
                 .orElseThrow(() -> new ProjetoNotFoundException(String.format(MSG_PROJETO_NAO_ENCONTRATO_COM_O_ID, id)));
     }

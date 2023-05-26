@@ -7,7 +7,9 @@ package br.com.gerencia.portfolio.exception;
  */
 public class PessoaErrorException extends RuntimeException {
 
-    public PessoaErrorException(String message){
+	private static final long serialVersionUID = 4488011619789795502L;
+
+	public PessoaErrorException(String message){
         super(message);
     }
 

@@ -25,10 +25,10 @@ import lombok.NoArgsConstructor;
  * @since 1.0
  */
 @Data
+@Entity
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Entity
 @Table(name = "pessoa")
 public class Pessoa implements Serializable{
 

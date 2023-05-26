@@ -7,7 +7,9 @@ package br.com.gerencia.portfolio.exception;
  */
 public class ProjetoErrorException extends RuntimeException {
 
-    public ProjetoErrorException(String message){
+	private static final long serialVersionUID = 1L;
+
+	public ProjetoErrorException(String message){
         super(message);
     }
 

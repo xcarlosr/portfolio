@@ -34,7 +34,7 @@ public class ProjetoValidator {
     
     public ProjetoValidator setProjeto(Projeto projeto) throws ProjetoNotFoundException {
         if(Objects.isNull(projeto))
-            throw new ProjetoNotFoundException("Pessoa não é valida");
+            throw new ProjetoNotFoundException("Projeto não é valida");
 
         this.projeto = projeto;
         return this;

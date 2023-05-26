@@ -31,7 +31,7 @@ import lombok.NoArgsConstructor;
  * @since 1.0
  */
 @Data
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

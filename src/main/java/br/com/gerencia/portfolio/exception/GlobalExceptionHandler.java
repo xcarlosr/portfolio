@@ -1,14 +1,18 @@
 package br.com.gerencia.portfolio.exception;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Carlos Roberto
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  * @since 1.0
  */
 @Slf4j
+@Getter
 @ControllerAdvice
 @RequiredArgsConstructor
 public class GlobalExceptionHandler {
@@ -62,16 +67,14 @@ public class GlobalExceptionHandler {
     }
 
     @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @ToString
-    private static class ErrorResponse {
+    public static class ErrorResponse {
         private String status;
         private String message;
-
-        public ErrorResponse(String status, String message) {
-            this.status = status;
-            this.message = message;
-        }
+        
     }
 }
 

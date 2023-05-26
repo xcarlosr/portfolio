@@ -7,7 +7,9 @@ package br.com.gerencia.portfolio.exception;
  */
 public class ProjetoNotFoundException extends RuntimeException {
 
-    public ProjetoNotFoundException(String message){
+	private static final long serialVersionUID = 2708105116089938139L;
+	
+	public ProjetoNotFoundException(String message){
         super(message);
     }
     public ProjetoNotFoundException(String message, Exception ex){

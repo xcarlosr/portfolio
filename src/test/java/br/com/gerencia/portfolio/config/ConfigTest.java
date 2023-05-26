@@ -51,7 +51,7 @@ public abstract class ConfigTest {
     
     /**
      * 
-     * Recebe o Response.body retornada da chamada given, 
+     * Recebe o Response retornado da chamada given, 
      * e o tipo da classe para criar a Lista.
      * 
      * @param <T>

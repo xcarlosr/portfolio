@@ -18,9 +18,9 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @Entity
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder(toBuilder = true)
 @Table(name = "membros")
 public class Membro implements Serializable{
 

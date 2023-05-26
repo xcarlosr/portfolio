@@ -7,7 +7,9 @@ package br.com.gerencia.portfolio.exception;
  */
 public class MembroErrorException extends RuntimeException {
 
-    public MembroErrorException(String message){
+	private static final long serialVersionUID = -1930097484646472961L;
+
+	public MembroErrorException(String message){
         super(message);
     }
 
