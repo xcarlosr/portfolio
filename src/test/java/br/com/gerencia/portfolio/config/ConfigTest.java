@@ -82,7 +82,7 @@ public abstract class ConfigTest {
      * @throws JsonMappingException 
      * @throws IOException 
      */
-    public <T> T getResponseExpected(String path, Class<T> type) throws JsonMappingException, JsonProcessingException{
+    public <T> T getResponseExpected(String path, Class<T> type) throws JsonProcessingException {
     	 JsonNode jsonResponseExpected = objectMapper.readTree(getJsonAsString(path));
          return objectMapper.convertValue(jsonResponseExpected, type);
     }

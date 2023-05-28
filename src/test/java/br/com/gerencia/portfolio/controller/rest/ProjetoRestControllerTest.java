@@ -1,28 +1,5 @@
 package br.com.gerencia.portfolio.controller.rest;
 
-import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.io.IOException;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.boot.test.mock.mockito.SpyBean;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.test.context.jdbc.Sql;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
 import br.com.gerencia.portfolio.config.ConfigTest;
 import br.com.gerencia.portfolio.dto.request.ProjetoRequest;
 import br.com.gerencia.portfolio.dto.response.ProjetoResponse;
@@ -34,8 +11,24 @@ import br.com.gerencia.portfolio.repository.ProjetoRepository;
 import br.com.gerencia.portfolio.service.ProjetoService;
 import br.com.gerencia.portfolio.validator.PessoaValidator;
 import br.com.gerencia.portfolio.validator.ProjetoValidator;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.test.context.jdbc.Sql;
+
+import java.io.IOException;
+
+import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 /**
  * @author Carlos Roberto
@@ -111,7 +104,7 @@ class ProjetoRestControllerTest extends ConfigTest {
 
     @Test
     @DisplayName("Deve lançar uma RegraNegocioException, ao tentar cadastrar um novo projeto com um gerente que não é funcionário.")
-    void caso02() throws JsonMappingException, JsonProcessingException{
+    void caso02() throws JsonProcessingException{
 
         ErrorResponse errorResponse = given()
                 .contentType(ContentType.JSON)
@@ -134,7 +127,7 @@ class ProjetoRestControllerTest extends ConfigTest {
     
     @Test
     @DisplayName("Deve lançar uma PessoaNotFoundException, ao tentar cadastrar um novo projeto com um gerente não encontrado.")
-    void caso03() throws JsonMappingException, JsonProcessingException{
+    void caso03() throws JsonProcessingException{
 
         ErrorResponse errorResponse = given()
                 .contentType(ContentType.JSON)
@@ -157,7 +150,7 @@ class ProjetoRestControllerTest extends ConfigTest {
     
     @Test
     @DisplayName("Deve lançar uma ProjetoErrorException, ao tentar cadastrar um novo projeto.")
-    void caso04() throws JsonMappingException, JsonProcessingException {
+    void caso04() throws JsonProcessingException {
     	
     	when(projetoMapper.mapToProjeto(any(ProjetoRequest.class))).thenThrow(RuntimeException.class);
     	
@@ -183,7 +176,7 @@ class ProjetoRestControllerTest extends ConfigTest {
     
     @Test
     @DisplayName("Deve lançar uma ProjetoErrorException, ao tentar listar os projetos.")
-    void caso05() throws JsonMappingException, JsonProcessingException {
+    void caso05() throws JsonProcessingException {
     	
     	when(projetoMapper.mapToListProjetoResponses(anyList())).thenThrow(new RuntimeException("Error ao listar projeto"));
 
@@ -208,7 +201,7 @@ class ProjetoRestControllerTest extends ConfigTest {
     
     @Test
     @DisplayName("Deve lançar uma ProjetoNotFoundException, ao tentar consultar um projeto por id.")
-    void caso06() throws JsonMappingException, JsonProcessingException {
+    void caso06() throws JsonProcessingException {
     	
     	when(projetoMapper.mapToListProjetoResponses(anyList())).thenThrow(RuntimeException.class);
 
@@ -232,7 +225,7 @@ class ProjetoRestControllerTest extends ConfigTest {
 
     @Test
     @DisplayName("Deve lançar uma ProjetoErrorException, ao tentar consultar um projeto por id.")
-    void caso07() throws JsonMappingException, JsonProcessingException {
+    void caso07() throws JsonProcessingException {
     	
     	when(projetoMapper.mapToProjetoResponse(any(Projeto.class))).thenThrow(RuntimeException.class);
 
@@ -257,7 +250,7 @@ class ProjetoRestControllerTest extends ConfigTest {
     
     @Test
     @DisplayName("Deve lançar uma RegraNegocioException, ao tentar atualizar um projeto quando o gerente não é funcionário.")
-    void caso08() throws JsonMappingException, JsonProcessingException {
+    void caso08() throws JsonProcessingException {
     	
     	ErrorResponse errorResponse = given()
                 .contentType(ContentType.JSON)
@@ -280,7 +273,7 @@ class ProjetoRestControllerTest extends ConfigTest {
     
     @Test
     @DisplayName("Deve lançar uma ProjetoNotFoundException, ao tentar atualizar um projeto quando o projeto não é encontrado.")
-    void caso09() throws JsonMappingException, JsonProcessingException{
+    void caso09() throws JsonProcessingException{
 
         ErrorResponse errorResponse = given()
                 .contentType(ContentType.JSON)
@@ -303,7 +296,7 @@ class ProjetoRestControllerTest extends ConfigTest {
     
     @Test
     @DisplayName("Deve lançar uma PessoaNotFoundException, ao tentar atualizar um projeto quando o pessoa não é encontrado.")
-    void caso10() throws JsonMappingException, JsonProcessingException{
+    void caso10() throws JsonProcessingException{
 
         ErrorResponse errorResponse = given()
                 .contentType(ContentType.JSON)
@@ -325,7 +318,7 @@ class ProjetoRestControllerTest extends ConfigTest {
     
     @Test
     @DisplayName("Deve lançar uma ProjetoErrorException, ao tentar atualizar um projeto.")
-    void caso11() throws JsonMappingException, JsonProcessingException {
+    void caso11() throws JsonProcessingException {
     	
     	when(projetoMapper.mapProjetoToUpdate(any(ProjetoRequest.class), any(Projeto.class))).thenThrow(RuntimeException.class);
     	
@@ -350,7 +343,7 @@ class ProjetoRestControllerTest extends ConfigTest {
     
      @Test
      @DisplayName("Deve listar os projetos pagaginado, na primeira página, com 5 elementos por página e total de 15 elementos.")
-    void caso12() throws JsonMappingException, JsonProcessingException {
+    void caso12() throws JsonProcessingException {
     	
     	Response response = given()
 			.when()
@@ -384,7 +377,7 @@ class ProjetoRestControllerTest extends ConfigTest {
     
      @Test
      @DisplayName("Deve retornar um projeto pelo id.")
-    void caso13() throws JsonMappingException, JsonProcessingException {
+    void caso13() throws JsonProcessingException {
     	
     	Response response = given()
     			.when()
