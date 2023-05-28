@@ -199,7 +199,8 @@ class PeojetoServiceTest {
     	listaProejtoResponses.add(projetoResponseExpected);
     	
     	when(projetoRepository.findById(anyLong())).thenReturn(Optional.of(projeto));
-    	when(projetoMapper.mapToListProjetoResponses(anyList())).thenReturn(listaProejtoResponses);
+    	when(pessoaRepository.findById(anyLong())).thenReturn(Optional.of(pessoaFuncionario));
+    	when(projetoMapper.mapToProjetoResponse(any(Projeto.class))).thenReturn(projetoResponseExpected);
     	
     	Page<ProjetoResponse> result = projetoService.consultarProjeto(projeto.getId());
     	

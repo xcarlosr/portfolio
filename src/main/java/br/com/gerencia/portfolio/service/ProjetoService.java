@@ -84,12 +84,13 @@ public class ProjetoService {
     }
 
     public Page<ProjetoResponse> consultarProjeto(Long id) throws ProjetoNotFoundException, ProjetoErrorException {
-        try{
+       
+    	try{
+        	
             Projeto projeto = findProjetoById(id);
-
-            Pageable pageable = PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "id"));
-            List<ProjetoResponse> projetoResponses = projetoMapper.mapToListProjetoResponses(List.of(projeto));
-            return new PageImpl<>(projetoResponses, pageable, 1);
+            findByPessoaId(projeto.getGerente().getId());
+            
+            return getCreatePage(projeto);
 
         } catch (ProjetoNotFoundException ex) {
             throw ex;

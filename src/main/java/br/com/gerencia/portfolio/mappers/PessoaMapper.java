@@ -18,7 +18,7 @@ public interface PessoaMapper {
 
     Pessoa mapToPessoa(PessoaRequest pessoaRequest);
 
-    @Mapping(source = "dataNascimento", target = "dataNascimento", conditionExpression = "java(pessoa.getDataNascimento() != null)", qualifiedByName = "localDateToString")
+    @Mapping(source = "dataNascimento", target = "dataNascimento")
     @Mapping(source = "cpf", target = "cpf", conditionExpression = "java(pessoa.getCpf() != null)", qualifiedByName = "ofuscarCPF")
     PessoaResponse mapToPessoaResponse(Pessoa pessoa);
 

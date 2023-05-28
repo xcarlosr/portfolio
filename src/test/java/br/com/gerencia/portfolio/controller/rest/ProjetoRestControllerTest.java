@@ -94,7 +94,7 @@ class ProjetoRestControllerTest extends ConfigTest {
 
         ProjetoResponse projetoResponse = getPageContent(response.asString(), ProjetoResponse.class).get(0);
         
-        ProjetoResponse projetoResponseSucesso = getResponseExpected("projeto/responses/response_cadastrar_projeto_sucesso.json", ProjetoResponse.class);
+        ProjetoResponse projetoResponseSucesso = getResponseExpected("projeto/responses/response_cadastrar_projeto.json", ProjetoResponse.class);
         
         assertEquals(projetoResponseSucesso.getId(), projetoResponse.getId());
         assertEquals(projetoResponseSucesso.getNome(), projetoResponse.getNome());
@@ -108,39 +108,6 @@ class ProjetoRestControllerTest extends ConfigTest {
 
     }
     
-    @Test
-    @DisplayName("Deve listar os projetos.")
-    void caso52() throws JsonMappingException, JsonProcessingException {
-    	
-    	Response response = given()
-			.when()
-				.get("/projetos")
-			.then()
-    			.assertThat()
-    			.statusCode(HttpStatus.OK.value())
-    			.extract()
-    				.response();
-    	
-    	ProjetoResponse projetoResponse = getPageContent(response.asString(), ProjetoResponse.class).get(0);
-    	
-    	
-    	ProjetoResponse projetoResponseSucesso = getResponseExpected("projeto/responses/response_listar_projeto_sucesso.json", ProjetoResponse.class);
-        
-        assertEquals(projetoResponseSucesso.getId(), projetoResponse.getId());
-        assertEquals(projetoResponseSucesso.getNome(), projetoResponse.getNome());
-        assertEquals(projetoResponseSucesso.getDescricao(), projetoResponse.getDescricao());
-        assertEquals(projetoResponseSucesso.getOrcamento(), projetoResponse.getOrcamento());
-        assertEquals(projetoResponseSucesso.getGerente().getId(), projetoResponse.getGerente().getId());
-        assertEquals(projetoResponseSucesso.getGerente().getNome(), projetoResponse.getGerente().getNome());
-        assertEquals(projetoResponseSucesso.getGerente().getCpf(), projetoResponse.getGerente().getCpf());
-        
-        assertEquals(PAGE_NUMBER, response.jsonPath().getInt("number"));
-        assertEquals(PAGE_SIZE, response.jsonPath().getInt("size"));
-        assertEquals(TOTAL_ELEMENTOS, response.jsonPath().getInt("totalElements"));
-		
-		verify(projetoService, times(1)).listarProjetos(any(Pageable.class));
-    	
-    }
 
     @Test
     @DisplayName("Deve lançar uma RegraNegocioException, ao tentar cadastrar um novo projeto com um gerente que não é funcionário.")
@@ -218,7 +185,7 @@ class ProjetoRestControllerTest extends ConfigTest {
     @DisplayName("Deve lançar uma ProjetoErrorException, ao tentar listar os projetos.")
     void caso05() throws JsonMappingException, JsonProcessingException {
     	
-    	when(projetoMapper.mapToListProjetoResponses(anyList())).thenThrow(RuntimeException.class);
+    	when(projetoMapper.mapToListProjetoResponses(anyList())).thenThrow(new RuntimeException("Error ao listar projeto"));
 
     	ErrorResponse errorResponse = given()
 			.when()
@@ -267,7 +234,7 @@ class ProjetoRestControllerTest extends ConfigTest {
     @DisplayName("Deve lançar uma ProjetoErrorException, ao tentar consultar um projeto por id.")
     void caso07() throws JsonMappingException, JsonProcessingException {
     	
-    	when(projetoMapper.mapToListProjetoResponses(anyList())).thenThrow(RuntimeException.class);
+    	when(projetoMapper.mapToProjetoResponse(any(Projeto.class))).thenThrow(RuntimeException.class);
 
     	ErrorResponse errorResponse = given()
 			.when()
@@ -378,6 +345,70 @@ class ProjetoRestControllerTest extends ConfigTest {
 		assertEquals(erroResponseExpected.getMessage(), errorResponse.getMessage());
 		
 		verify(projetoService, times(1)).atualizarProjeto(anyLong(), any(ProjetoRequest.class));
+    	
+    }
+    
+     @Test
+     @DisplayName("Deve listar os projetos pagaginado, na primeira página, com 5 elementos por página e total de 15 elementos.")
+    void caso12() throws JsonMappingException, JsonProcessingException {
+    	
+    	Response response = given()
+			.when()
+				.get("/projetos")
+			.then()
+    			.assertThat()
+    			.statusCode(HttpStatus.OK.value())
+    			.extract()
+    				.response();
+    	
+    	ProjetoResponse projetoResponse = getPageContent(response.asString(), ProjetoResponse.class).get(0);
+    	
+    	
+    	ProjetoResponse projetoResponseExpected = getResponseExpected("projeto/responses/response_listar_projeto.json", ProjetoResponse.class);
+        
+        assertEquals(projetoResponseExpected.getId(), projetoResponse.getId());
+        assertEquals(projetoResponseExpected.getNome(), projetoResponse.getNome());
+        assertEquals(projetoResponseExpected.getDescricao(), projetoResponse.getDescricao());
+        assertEquals(projetoResponseExpected.getOrcamento(), projetoResponse.getOrcamento());
+        assertEquals(projetoResponseExpected.getGerente().getId(), projetoResponse.getGerente().getId());
+        assertEquals(projetoResponseExpected.getGerente().getNome(), projetoResponse.getGerente().getNome());
+        assertEquals(projetoResponseExpected.getGerente().getCpf(), projetoResponse.getGerente().getCpf());
+        
+        assertEquals(PAGE_NUMBER, response.jsonPath().getInt("number"));
+        assertEquals(PAGE_SIZE, response.jsonPath().getInt("size"));
+        assertEquals(TOTAL_ELEMENTOS, response.jsonPath().getInt("totalElements"));
+		
+		verify(projetoService, times(1)).listarProjetos(any(Pageable.class));
+    	
+    }
+    
+     @Test
+     @DisplayName("Deve retornar um projeto pelo id.")
+    void caso13() throws JsonMappingException, JsonProcessingException {
+    	
+    	Response response = given()
+    			.when()
+    				.get("/projetos/2")
+    			.then()
+    				.assertThat()
+    				.statusCode(HttpStatus.OK.value())
+    				.extract()
+    					.response();
+    	
+    	ProjetoResponse projetoResponse = getPageContent(response.asString(), ProjetoResponse.class).get(0);
+    	
+    	ProjetoResponse projetoResponseExpected = getResponseExpected("projeto/responses/response_buscar_projeto_por_id.json", ProjetoResponse.class);
+    	
+    	
+    	assertEquals(projetoResponseExpected.getId(), projetoResponse.getId());
+        assertEquals(projetoResponseExpected.getNome(), projetoResponse.getNome());
+        assertEquals(projetoResponseExpected.getDescricao(), projetoResponse.getDescricao());
+        assertEquals(projetoResponseExpected.getOrcamento(), projetoResponse.getOrcamento());
+        assertEquals(projetoResponseExpected.getGerente().getId(), projetoResponse.getGerente().getId());
+        assertEquals(projetoResponseExpected.getGerente().getNome(), projetoResponse.getGerente().getNome());
+        assertEquals(projetoResponseExpected.getGerente().getCpf(), projetoResponse.getGerente().getCpf());
+        
+		verify(projetoService, times(1)).consultarProjeto(anyLong());
     	
     }
         
