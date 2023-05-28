@@ -244,7 +244,6 @@ class PeojetoServiceTest {
         when(projetoRepository.findById(anyLong())).thenReturn(Optional.of(projeto));
         
         when(projetoValidator.setProjeto(any())).thenReturn(projetoValidatorTest);
-    	when(pessoaValidator.getPessoaById(any())).thenReturn(pessoaFuncionario);
         
         doNothing().when(projetoRepository).delete(projeto);
         when(projetoRepository.findAll(pageable)).thenReturn(projetoPage);

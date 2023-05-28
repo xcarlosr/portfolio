@@ -1,0 +1,17 @@
+{
+  "id": 10,		
+  "nome": "Projeto 10 atualizado",
+  "dataInicio": "2023-05-10",
+  "dataPrevisaoFim": "2023-06-10",
+  "descricao": "Descrição do Projeto 10",
+  "status": "INICIADO",
+  "orcamento": "100000",
+  "risco": "ALTO_RISCO",
+  "gerente": {
+                "id": 3,
+                "nome": "Ana Oliveira",
+                "dataNascimento": "1998-11-20",
+                "cpf": "444.***.***-44",
+                "funcionario": true
+            }
+}

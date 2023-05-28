@@ -125,7 +125,7 @@ public class ProjetoService {
             ProjetoNotFoundException, PessoaNotFoundException  {
 
         try{
-            Projeto projeto = projetoValidator.setProjeto(findProjetoById(id)).isFuncionario().isPossivelDeletar().getProjeto();
+            Projeto projeto = projetoValidator.setProjeto(findProjetoById(id)).isPossivelDeletar().getProjeto();
             projetoRepository.delete(projeto);
             Page<Projeto> projetoPage = projetoRepository.findAll(pageable);
             List<ProjetoResponse> projetoResponses = projetoMapper.mapToListProjetoResponses(projetoPage.getContent());

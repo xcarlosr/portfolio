@@ -1,0 +1,17 @@
+{
+  "id": 10,		
+  "nome": "Projeto J",
+  "dataInicio": "2023-02-01",
+  "dataPrevisaoFim": "2023-05-31",
+  "descricao": "Descrição do Projeto J",
+  "status": "PLANEJADO",
+  "orcamento": "5000.00",
+  "risco": "MEDIO_RISCO",
+  "gerente": {
+                "id": 1,
+                "nome": "Maria Santos",
+                "dataNascimento": "1985-02-15",
+                "cpf": "222.***.***-22",
+                "funcionario": true
+            }
+}
