@@ -308,7 +308,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<!-- <argLine>-Dfile.encoding=UTF-8</argLine> -->
 					<encoding>UTF-8</encoding>
 					<useSystemClassLoader>false</useSystemClassLoader>
 				</configuration>
@@ -341,6 +340,9 @@
 							</limits>
 						</rule>
 					</rules>
+					<encoding>UTF-8</encoding>
+					<argLine>-Dfile.encoding=UTF-8</argLine>
+  					<append>true</append>
 				</configuration>
 				<executions>
 					<execution>
